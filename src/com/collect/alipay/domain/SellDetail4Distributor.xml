@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.collect.alipay.domain.SellDetail4Distributor">
+
+	<!-- get pager -->
+	<select id="getpager" resultMap="sellDetail4Distributor">
+		select *
+		from t_pay
+		left join t_loginer on p_loginer = l_username
+		left join t_cust on l_custOrDistributorId = c_id
+		<where>
+			<if test="sellDetail4Distributor.cust != null and sellDetail4Distributor.cust.name != null">
+				c_name like '%${sellDetail4Distributor.cust.name}%'
+			</if>
+			<if test="sellDetail4Distributor.payDate != null">
+				and date_format(p_pay_date, '%Y-%m') = #{sellDetail4Distributor.payDate}
+			</if>
+			<if test="!distributorIds.isEmpty()">
+				and c_distributor_id in
+				<foreach collection="distributorIds" open="(" separator="," close=")" item="distributorId">
+					#{distributorId}
+				</foreach>
+			</if>
+		</where>
+		limit #{sellDetail4Distributor.start}, #{sellDetail4Distributor.length}
+	</select>
+
+	<!-- geg count -->
+	<select id="getCountWithCondition" resultType="integer">
+		select count(p_id)
+		from t_pay
+		left join t_loginer on p_loginer = l_username
+		left join t_cust on l_custOrDistributorId = c_id
+		<where>
+			<if test="sellDetail4Distributor.cust != null and sellDetail4Distributor.cust.name != null">
+				c_name like '%${sellDetail4Distributor.cust.name}%'
+			</if>
+			<if test="sellDetail4Distributor.payDate != null">
+				and date_format(p_pay_date, '%Y-%m') = #{sellDetail4Distributor.payDate}
+			</if>
+			<if test="!distributorIds.isEmpty()">
+				and c_distributor_id in
+				<foreach collection="distributorIds" open="(" separator="," close=")" item="distributorId">
+					#{distributorId}
+				</foreach>
+			</if>
+		</where>
+	</select>
+
+
+	<!-- result map -->
+	<resultMap type="SellDetail4Distributor" id="sellDetail4Distributor">
+		<id column="p_id" property="id" />
+		<result column="p_category" property="category" />
+		<result column="p_amount" property="amount" />
+		<result column="p_pay_date" property="payDate" />
+		<result column="p_pay_type" property="payWay" />
+		<result column="p_loginer" property="loginer" />
+		<association property="cust" javaType="Cust">
+			<id column="c_id" property="id" />
+			<result column="c_name" property="name" />
+		</association>
+	</resultMap>
+</mapper>

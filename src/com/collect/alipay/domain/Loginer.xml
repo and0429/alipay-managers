@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.collect.alipay.domain.Loginer">
+
+	<!-- check login -->
+	<select id="check" parameterType="Loginer" resultMap="loginer">
+		select *
+		from t_loginer where
+		l_username = #{username} and l_password = #{password}
+	</select>
+
+	<!-- save a entity -->
+	<insert id="save">
+		insert into t_loginer (l_id, l_username, l_password, l_role, l_custOrDistributorId)
+		values (
+		#{id},
+		#{username},
+		#{password},
+		#{role},
+		#{custOrDistributorId}
+		)
+	</insert>
+
+	<!-- updata password -->
+	<update id="update">
+		update t_loginer
+		<set>
+			<if test="password != null and password != ''">
+				l_password = #{password}
+			</if>
+		</set>
+		where l_id = #{id}
+	</update>
+
+	<!-- delete a entity -->
+	<delete id="delete">
+		delete from t_loginer where l_id = #{id}
+	</delete>
+
+	<!-- get pager data -->
+	<select id="getpager" resultMap="loginer">
+		select * from t_loginer
+		<where>
+			<if test="username != null and username != ''">
+				l_username like '%${username}%'
+			</if>
+			<if test="custOrDistributorId != null">
+				and l_custOrDistributorId = #{custOrDistributorId}
+			</if>
+		</where>
+		limit #{start}, #{length}
+	</select>
+
+	<!-- get count with condition -->
+	<select id="getCountWithCondition" resultType="int">
+		select count(l_id) from t_loginer
+		<where>
+			<if test="username != null and username != ''">
+				l_username like '${username}'
+			</if>
+			<if test="custOrDistributorId != null">
+				and l_custOrDistributorId = #{custOrDistributorId}
+			</if>
+		</where>
+	</select>
+
+	<!-- get by Usernmae -->
+	<select id="getByUsername" resultMap="loginer">
+		select * from t_loginer where l_username = #{username}
+	</select>
+
+	<!-- get set by custId -->
+	<select id="getByCustId" resultMap="loginer">
+		select * from t_loginer where l_custOrDistributorId = #{custId}
+	</select>
+
+
+	<resultMap type="Loginer" id="loginer">
+		<id column="l_id" property="id" />
+		<result column="l_username" property="username" />
+		<result column="l_password" property="password" />
+		<result column="l_role" property="role" />
+		<result column="l_custOrDistributorId" property="custOrDistributorId" />
+	</resultMap>
+</mapper>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.collect.alipay.domain.GoodsCategory">
+
+	<!-- get dataTables data for pager -->
+	<select id="getpager" resultMap="goodsCategory">
+		select * from t_goods_category
+		<where>
+			<if test="custId != null and custId != ''">
+				gc_cust_id = #{custId}
+			</if>
+		</where>
+		order by gc_id
+		<if test="start != null and length != null">
+			limit #{start}, #{length}
+		</if>
+	</select>
+
+
+	<!-- get count -->
+	<select id="getCountWithCondition" resultType="int">
+		select count(gc_id) from t_goods_category
+		<where>
+			<if test="custId != null and custId != ''">
+				gc_cust_id = #{custId}
+			</if>
+		</where>
+	</select>
+
+	<!-- get entity by name -->
+	<select id="getByNameAndCustId" parameterType="string" resultMap="goodsCategory">
+		select * from t_goods_category where gc_name = #{name} and gc_cust_id = #{custId}
+	</select>
+
+	<!-- delete a entiry -->
+	<delete id="delete">
+		delete from t_goods_category where gc_id = #{id}
+	</delete>
+
+	<!-- insert a entiry -->
+	<insert id="save" parameterType="GoodsCategory">
+		insert into t_goods_category (gc_id, gc_name, gc_cust_id) values (#{id}, #{name}, #{custId})
+	</insert>
+
+
+	<resultMap type="GoodsCategory" id="goodsCategory">
+		<id column="gc_id" property="id" />
+		<result column="gc_name" property="name" />
+		<result column="gc_cust_id" property="custId" />
+	</resultMap>
+</mapper>

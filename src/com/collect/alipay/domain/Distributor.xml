@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.collect.alipay.domain.Distributor">
+
+	<!-- save a entity -->
+	<insert id="save" parameterType="Distributor">
+		insert into t_distributor(d_id, d_name, d_addr, d_manager, d_tel, d_parent_id, d_haschild)
+		values (#{id}, #{name}, #{addr, jdbcType=VARCHAR}, #{manager, jdbcType=VARCHAR},
+		#{tel, jdbcType=VARCHAR}, #{pId, jdbcType=VARCHAR}, 0)
+	</insert>
+
+	<!-- delete a entity -->
+	<delete id="delete" parameterType="string">
+		delete from t_distributor where d_id = #{id}
+	</delete>
+
+	<!-- get by Id -->
+	<select id="getById" parameterType="string" resultMap="distributor">
+		select
+		<include refid="select" />
+		from t_distributor c
+		left
+		join t_distributor p
+		on
+		c.d_parent_id = p.d_id
+		where c.d_id = #{id}
+	</select>
+
+	<!-- update a entity -->
+	<update id="update" parameterType="Distributor">
+		update t_distributor
+		<set>
+			<if test="name != null">
+				d_name = #{name},
+			</if>
+			<if test="addr != null">
+				d_addr = #{addr},
+			</if>
+			<if test="manager != null">
+				d_manager = #{manager},
+			</if>
+			<if test="tel != null">
+				d_tel = #{tel},
+			</if>
+			<if test="pId != null">
+				d_parent_id = #{pId},
+			</if>
+			<if test="hasChild != null">
+				d_haschild = #{hasChild}
+			</if>
+		</set>
+		where d_id = #{id}
+	</update>
+
+	<!-- get All entity -->
+	<select id="getAll" resultMap="distributor">
+		select
+		<include refid="select" />
+		from t_distributor c
+		left
+		join t_distributor p
+		on
+		c.d_parent_id = p.d_id
+	</select>
+
+	<!-- get by parentId -->
+	<select id="getByParentId" resultMap="distributorSimple">
+		select d_id, d_name from t_distributor where d_parent_id = #{parentId}
+	</select>
+
+	<!-- simple resultMap -->
+	<resultMap type="Distributor" id="distributorSimple">
+		<id column="d_id" property="id" />
+		<result column="d_name" property="name" />
+	</resultMap>
+
+	<!-- result map -->
+	<resultMap type="Distributor" id="distributor">
+		<id column="c_d_id" property="id" />
+		<result column="c_d_name" property="name" />
+		<result column="c_d_addr" property="addr" />
+		<result column="c_d_manager" property="manager" />
+		<result column="c_d_tel" property="tel" />
+		<result column="c_d_parent_id" property="pId" />
+		<result column="c_d_haschild" property="hasChild" />
+		<association property="pPistributor" javaType="Distributor">
+			<id column="p_d_id" property="id" />
+			<result column="p_d_name" property="name" />
+			<result column="p_d_addr" property="addr" />
+			<result column="p_d_manager" property="manager" />
+			<result column="p_d_tel" property="tel" />
+			<result column="p_d_parent_id" property="pId" />
+			<result column="p_d_haschild" property="hasChild" />
+		</association>
+	</resultMap>
+
+	<!-- select sql -->
+	<sql id="select">
+		c.d_id as c_d_id,
+		c.d_name as
+		c_d_name,
+		c.d_addr as c_d_addr,
+		c.d_manager as c_d_manager,
+		c.d_tel as
+		c_d_tel,
+		c.d_parent_id as c_d_parent_id,
+		c.d_haschild as c_d_haschild,
+
+		p.d_id as p_d_id,
+		p.d_name as p_d_name,
+		p.d_addr as p_d_addr,
+		p.d_manager as p_d_manager,
+		p.d_tel as p_d_tel,
+		p.d_parent_id as
+		p_d_parent_id,
+		p.d_haschild as p_d_haschild
+	</sql>
+
+</mapper>

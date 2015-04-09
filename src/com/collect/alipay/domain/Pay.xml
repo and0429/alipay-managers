@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.collect.alipay.domain.Pay">
+
+	<!-- get pager data -->
+	<select id="getpager" resultMap="pay">
+		select * from t_pay
+		<where>
+			<if test="startDate != null">
+				p_pay_date <![CDATA[>=]]>
+				#{startDate}
+			</if>
+			<if test="endDate != null">
+				and p_pay_date <![CDATA[<=]]>
+				#{endDate}
+			</if>
+			<if test="loginer != null">
+				and p_loginer = #{loginer}
+			</if>
+		</where>
+		order by p_pay_date desc
+		limit #{start}, #{length}
+	</select>
+
+	<!-- get count with condition -->
+	<select id="getCountWithCondition" resultType="integer">
+		select count(p_id) from t_pay
+		<where>
+			<if test="startDate != null">
+				p_pay_date <![CDATA[>=]]>
+				#{startDate}
+			</if>
+			<if test="endDate != null">
+				and p_pay_date <![CDATA[<=]]>
+				#{endDate}
+			</if>
+			<if test="loginer != null">
+				and p_loginer = #{loginer}
+			</if>
+		</where>
+	</select>
+
+	
+	
+
+	<resultMap type="Pay" id="pay">
+		<id column="p_id" property="id" />
+		<result column="p_category" property="category" />
+		<result column="p_amount" property="amount" />
+		<result column="p_pay_date" property="payDate" />
+		<result column="p_loginer" property="loginer" />
+		<result column="p_pay_type" property="payWay" />
+	</resultMap>
+</mapper>

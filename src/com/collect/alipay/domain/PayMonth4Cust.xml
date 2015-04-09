@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.collect.alipay.domain.PayMonth4Cust">
+
+	<!-- get pager data -->
+	<select id="getpager" resultMap="payMonth4Cust">
+		select
+		pmc.*,
+		c.*,
+		(select de_val from t_deduct) as deduct
+		from t_pay_month_cust pmc
+		left join t_cust c
+		on pc_custid = c_id
+		<include refid="whereCondition" />
+		limit #{payMonth4Cust.start}, #{payMonth4Cust.length}
+	</select>
+
+	<!-- get count -->
+	<select id="getCountWithCondition" resultType="integer">
+		select count(pc_id) from t_pay_month_cust
+		left join t_cust
+		on pc_custid = c_id
+		<include refid="whereCondition" />
+	</select>
+
+	<!-- result map -->
+	<resultMap type="PayMonth4Cust" id="payMonth4Cust">
+		<id column="pc_id" property="id" />
+		<result column="pc_month" property="month" />
+		<result column="pc_total_money" property="total" />
+		<result column="deduct" property="deduct" />
+		<association property="cust" javaType="Cust">
+			<id column="c_id" property="id" />
+			<result column="c_name" property="name" />
+		</association>
+	</resultMap>
+
+	<!-- where conditiono -->
+	<sql id="whereCondition">
+		<where>
+			<if test="payMonth4Cust.month != null">
+				pc_month = #{payMonth4Cust.month}
+			</if>
+			<if test="payMonth4Cust.cust.name != null">
+				and c_name like '%${payMonth4Cust.cust.name}%'
+			</if>
+			<if test="!distributorIds.isEmpty()">
+				and c_distributor_id in
+				<foreach collection="distributorIds" open="(" separator="," close=")" item="distributorId">
+					#{distributorId}
+				</foreach>
+			</if>
+		</where>
+	</sql>
+
+</mapper>

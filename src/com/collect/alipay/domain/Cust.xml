@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.collect.alipay.domain.Cust">
+
+	<!-- add a entity -->
+	<insert id="save" parameterType="Cust">
+		insert into t_cust (c_id, c_name, c_addr, c_manager, c_tel, c_distributor_id) values
+		(#{id}, #{name}, #{addr, jdbcType=VARCHAR}, #{manager, jdbcType=VARCHAR}, #{tel, jdbcType=VARCHAR}, #{distributor.id, jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<!-- delete a entity -->
+	<delete id="delete" parameterType="string">
+		delete from t_cust where c_id
+		=
+		#{id}
+	</delete>
+
+	<!-- update a entity -->
+	<update id="update" parameterType="Cust">
+		update t_cust
+		<set>
+			<if test="distributor != null and distributor.id != null">
+				c_distributor_id = #{distributor.id},
+			</if>
+			<if test="name != null">
+				c_name = #{name},
+			</if>
+			<if test="manager != null">
+				c_manager = #{manager},
+			</if>
+			<if test="tel != null">
+				c_tel = #{tel},
+			</if>
+			<if test="addr != null">
+				c_addr = #{addr}
+			</if>
+		</set>
+		where c_id = #{id}
+	</update>
+
+	<!-- 获取一个实体 -->
+	<select id="getById" parameterType="string" resultMap="cust">
+		select * from t_cust c left join t_distributor d on c.c_distributor_id = d.d_id where c.c_id = #{id}
+	</select>
+
+	<!-- 根据条件查询分页数据 -->
+	<select id="getpager" parameterType="Cust" resultMap="cust">
+		select * from t_cust c left join t_distributor d on c.c_distributor_id = d.d_id
+		<include refid="whereCondition" />
+		limit #{start}, #{length}
+	</select>
+
+	<!-- ===================================查询分销商及其子分销商的用户============================= -->
+	<select id="getPagerWithMapCodition" resultMap="cust">
+		select * from t_cust c left join t_distributor d on c.c_distributor_id = d.d_id
+		<include refid="whereCondition2" />
+		limit #{cust.start}, #{cust.length}
+	</select>
+	<select id="getPagerWithMapCoditionCount" resultType="int">
+		select count(c_id) from t_cust
+		<include refid="whereCondition2" />
+	</select>
+	<!-- ================================================================================ -->
+
+	<!-- 获取记录总数 -->
+	<select id="getCount" resultType="int">
+		select count(c_id) from t_cust
+	</select>
+
+	<!-- 根据条件获取记录数 -->
+	<select id="getCountWithCondition" parameterType="cust" resultType="int">
+		select count(c_id) from t_cust
+		<include refid="whereCondition" />
+	</select>
+
+	<!-- load all cust -->
+	<select id="getAll" resultMap="cust">
+		select * from t_cust
+	</select>
+
+	<!-- get cust list by distribuotr id -->
+	<select id="getByDistributorId" resultMap="cust">
+		select * from t_cust where c_distributor_id = #{distributorId}
+	</select>
+
+	<!-- get by list -->
+	<select id="getByDistributorIds" resultMap="cust">
+		select * from t_cust
+		<where>
+			<if test="!list.isEmpty()">
+				c_distributor_id in
+				<foreach collection="list" open="(" separator="," close=")" item="item">
+					#{item}
+				</foreach>
+			</if>
+		</where>
+	</select>
+
+	<resultMap type="Cust" id="cust">
+		<id column="c_id" property="id" />
+		<result column="c_name" property="name" />
+		<result column="c_manager" property="manager" />
+		<result column="c_tel" property="tel" />
+		<result column="c_addr" property="addr" />
+		<result column="c_distributor_id" property="pId" />
+		<association property="distributor" javaType="Distributor">
+			<id column="d_id" property="id" />
+			<result column="d_name" property="name" />
+		</association>
+	</resultMap>
+
+	<!-- where condition -->
+	<sql id="whereCondition">
+		<where>
+			<if test="distributor != null and distributor.id != null">
+				u_distributorId = #{distributor.id}
+			</if>
+			<if test="name != null and name != ''">
+				and c_name like '%${name}%'
+			</if>
+			<if test="manager != null">
+				and c_manager = #{manager}
+			</if>
+			<if test="tel != null">
+				and c_tel = #{tel}
+			</if>
+			<if test="addr != null">
+				and c_addr = #{addr}
+			</if>
+		</where>
+	</sql>
+
+	<!-- where condition -->
+	<sql id="whereCondition2">
+		<where>
+			<if test="cust.name != null and cust.name != ''">
+				c_name like '%${cust.name}%'
+			</if>
+			<if test="distributorIds.size() > 0">
+				and c_distributor_id in
+				<foreach item="item" collection="distributorIds" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+		</where>
+	</sql>
+
+</mapper>
