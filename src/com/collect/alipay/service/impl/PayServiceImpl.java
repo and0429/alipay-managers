@@ -38,11 +38,13 @@ public class PayServiceImpl extends BaseServiceImpl<Pay> implements PayService {
 
 		PrecreateRequest pr = new PrecreateRequest();
 
+		String tradeNo = "101" + new Date().getTime() + (loginer == null ? "" : loginer.getUsername());
+		
 		pr.setProductCode("QR_CODE_OFFLINE");
 		pr.setRemark("102");
 		pr.setSubject("102");
 		pr.setTotal(total);
-		pr.setTradeNo("101" + new Date().getTime() + loginer == null ? "" : loginer.getUsername());
+		pr.setTradeNo(tradeNo);
 		pr.setUser(loginer == null ? "" : loginer.getUsername());
 		pr.setNotifyUrl(notifyUrl);
 
