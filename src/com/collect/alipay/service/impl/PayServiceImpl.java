@@ -42,7 +42,7 @@ public class PayServiceImpl extends BaseServiceImpl<Pay> implements PayService {
 		pr.setSubject("102");
 		pr.setTotal(total);
 		pr.setTradeNo("101" + UUIDUtil.randomUUID());
-		pr.setUser(loginer == null ? null : loginer.getUsername());
+		pr.setUser(loginer == null ? "" : loginer.getUsername());
 		pr.setNotifyUrl(notifyUrl);
 
 		return alipayService.alipayPrecreate(pr);
