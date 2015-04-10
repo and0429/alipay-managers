@@ -1,6 +1,7 @@
 var payOnlie = new Object();
 
 payOnlie.dataTable = undefined;
+payOnlie.outTradeNo = undefined;
 
 /**
  * main method
@@ -132,7 +133,7 @@ payOnlie.addButton = function() {
 	$('.toolbar').html(toolbarHtml);
 
 	var totalHtml = "";
-	totalHtml += "<span>总金额：</span><span id='totalValue'>0.01</span> 元"
+	totalHtml += "<span>总金额：</span><span id='totalValue'>0.00</span> 元"
 	$('.total').html(totalHtml);
 };
 
@@ -143,6 +144,12 @@ payOnlie.alipay = function() {
 
 	$('#alipay').on('click', function() {
 
+		if ($('#totalValue').html() == '0.00') {
+			alert('请先添加商品！');
+			return;
+		}
+
+		$('#successMessage').html('<img style="padding-left: 130px;" id="QRCode" />');
 		$('#QRCode').attr('src', '');
 
 		$.ajax({
@@ -157,25 +164,38 @@ payOnlie.alipay = function() {
 					'backdrop' : 'static',
 					'show' : true
 				});
+
+				payOnlie.outTradeNo = data.outTradeNo;
+
+				payOnlie.timeId = setInterval('payOnlie.getPayStatus()', 1000);
 			}
 		});
 	});
 };
 
 /**
- * 
+ * get pay status;
  */
- payOnlie.getPayStatus = function(orderId){
-	 
-	 
-	 
- }
+payOnlie.getPayStatus = function() {
 
+	console.log(payOnlie.outTradeNo);
 
+	$.ajax({
+		url : '../pay/getStatus/' + payOnlie.outTradeNo + '.do',
+		success : function(data) {
+			if (data) {
+				window.clearInterval(payOnlie.timeId);
+				$('#successMessage').html("<span style='padding-left: 180px;'>支付成功, 正在跳转。。。</span>");
+				window.setTimeout(function() {
+					$('#QRCodeModal').modal('hide');
+					payOnlie.dataTable.draw();
+				}, 3000);
+			}
 
+		}
+	})
 
-
-
+}
 
 /**
  * 

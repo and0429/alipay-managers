@@ -57,6 +57,10 @@
 		)
 	</insert>
 
+	<!-- get by id -->
+	<select id="getById" resultMap="pay">
+		select * from t_pay where p_id = #{id}
+	</select>
 
 
 	<resultMap type="Pay" id="pay">

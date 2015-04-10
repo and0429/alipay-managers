@@ -3,6 +3,7 @@ package com.collect.alipay.control;
 import javax.inject.Inject;
 
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -81,6 +82,11 @@ public class PayController {
 		}
 
 		return "success";
+	}
+
+	@RequestMapping(value = "/getStatus/{id}", method = RequestMethod.GET)
+	public Object getStatus(@PathVariable String id) {
+		return payService.getById(id);
 	}
 
 }
