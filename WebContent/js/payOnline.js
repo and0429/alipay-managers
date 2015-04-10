@@ -132,7 +132,7 @@ payOnlie.addButton = function() {
 	$('.toolbar').html(toolbarHtml);
 
 	var totalHtml = "";
-	totalHtml += "<span>总金额：</span><span id='totalValue'></span> 元"
+	totalHtml += "<span>总金额：</span><span id='totalValue'>0.01</span> 元"
 	$('.total').html(totalHtml);
 };
 
@@ -149,7 +149,7 @@ payOnlie.alipay = function() {
 			url : '../pay/prepay.do',
 			type : "POST",
 			data : {
-				'total' : $('.total').html()
+				'total' : $('#totalValue').html()
 			},
 			success : function(data) {
 				$('#QRCode').attr('src', data.smallPicUrl);
