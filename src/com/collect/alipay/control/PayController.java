@@ -1,10 +1,9 @@
 package com.collect.alipay.control;
 
-import java.util.Map;
-import java.util.Set;
-import java.util.Map.Entry;
+import java.util.Enumeration;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -65,15 +64,19 @@ public class PayController {
 	 * 支付后接受通知
 	 */
 	@RequestMapping(value = "/alipayNotify")
-	public String alipayNotify(Map<String, Object> params) {
+	public String alipayNotify(HttpServletRequest req) {
 
-		Set<Entry<String, Object>> set = params.entrySet();
+		Enumeration en = req.getParameterNames();
 
-		for (Entry<String, Object> entry : set) {
+		while (en.hasMoreElements()) {
+			String object = (String) en.nextElement();
 
-			System.out.println(entry.getKey() + "=================" + entry.getValue());
+			String value = req.getParameter(object);
+
+			System.out.println(object + "====" + value);
+
 		}
-		
+
 		return "success";
 	}
 
