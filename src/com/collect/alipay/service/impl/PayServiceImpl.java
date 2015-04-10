@@ -1,12 +1,13 @@
 package com.collect.alipay.service.impl;
 
+import java.util.Date;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.collect.alipay.domain.Loginer;
 import com.collect.alipay.domain.Pay;
 import com.collect.alipay.service.PayService;
-import com.collect.alipay.util.UUIDUtil;
 import com.collect.alipay.wsclient.AlipayPayService;
 import com.collect.alipay.wsclient.PrecreateRequest;
 import com.collect.alipay.wsclient.PrecreateResponse;
@@ -41,7 +42,7 @@ public class PayServiceImpl extends BaseServiceImpl<Pay> implements PayService {
 		pr.setRemark("102");
 		pr.setSubject("102");
 		pr.setTotal(total);
-		pr.setTradeNo("101" + UUIDUtil.randomUUID());
+		pr.setTradeNo("101" + new Date().getTime() + loginer == null ? "" : loginer.getUsername());
 		pr.setUser(loginer == null ? "" : loginer.getUsername());
 		pr.setNotifyUrl(notifyUrl);
 

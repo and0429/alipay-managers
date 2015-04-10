@@ -23,6 +23,16 @@ public class Pay extends BaseModel {
 	private String id;
 
 	/**
+	 * 支付宝交易号
+	 */
+	private String tradeNo;
+
+	/**
+	 * 支付者账号
+	 */
+	private String buyer;
+
+	/**
 	 * 商品类型
 	 */
 	private String category;
@@ -37,6 +47,7 @@ public class Pay extends BaseModel {
 	 * 1:现金
 	 */
 	private Integer payWay;
+
 	/**
 	 * 支付日期
 	 */
@@ -47,48 +58,64 @@ public class Pay extends BaseModel {
 	 */
 	private String loginer;
 
-	public String getId() {
-		return id;
+	public float getAmount() {
+		return amount;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public String getBuyer() {
+		return buyer;
 	}
 
 	public String getCategory() {
 		return category;
 	}
 
-	public void setCategory(String category) {
-		this.category = category;
-	}
-
-	public float getAmount() {
-		return amount;
-	}
-
-	public void setAmount(float amount) {
-		this.amount = amount;
+	public String getId() {
+		return id;
 	}
 
 	public String getLoginer() {
 		return loginer;
 	}
 
-	public void setLoginer(String loginer) {
-		this.loginer = loginer;
-	}
-
 	public String getPayDate() {
 		return payDate;
 	}
 
-	public void setPayDate(String payDate) {
-		this.payDate = payDate;
-	}
-
 	public Integer getPayWay() {
 		return payWay;
+	}
+
+	public void setAmount(float amount) {
+		this.amount = amount;
+	}
+
+	public void setBuyer(String buyer) {
+		this.buyer = buyer;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	public String getTradeNo() {
+		return tradeNo;
+	}
+
+	public void setTradeNo(String tradeNo) {
+		this.tradeNo = tradeNo;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public void setLoginer(String loginer) {
+		this.loginer = loginer;
+	}
+
+	public void setPayDate(String payDate) {
+		this.payDate = payDate;
 	}
 
 	public void setPayWay(Integer payWay) {

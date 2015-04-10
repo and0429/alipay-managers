@@ -1,9 +1,6 @@
 package com.collect.alipay.control;
 
-import java.util.Enumeration;
-
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +10,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.collect.alipay.domain.Loginer;
 import com.collect.alipay.domain.Pay;
+import com.collect.alipay.domain.PayDetail;
 import com.collect.alipay.service.PayService;
 
 /**
@@ -63,17 +61,21 @@ public class PayController {
 	/**
 	 * 支付后接受通知
 	 */
-	@RequestMapping(value = "/alipayNotify")
-	public String alipayNotify(HttpServletRequest req) {
+	@RequestMapping(value = "/alipayNotify", method = RequestMethod.POST)
+	public String alipayNotify(PayDetail payDetail) {
 
-		Enumeration en = req.getParameterNames();
+		if (payDetail.getTrade_status().equals("TRADE_SUCCESS")) {
 
-		while (en.hasMoreElements()) {
-			String object = (String) en.nextElement();
+			Pay pay = new Pay();
+			pay.setAmount(Float.parseFloat(payDetail.getTotal_fee()));
+			pay.setCategory(payDetail.getSubject());
+			pay.setId(payDetail.getOut_trade_no());
+			pay.setLoginer(payDetail.getLonginer());
+			pay.setPayDate(payDetail.getGmt_payment());
+			pay.setPayWay(0);
+			pay.setBuyer(payDetail.getBuyer_email());
 
-			String value = req.getParameter(object);
-
-			System.out.println(object + "====" + value);
+			payService.save(pay);
 
 		}
 

@@ -165,4 +165,19 @@ payOnlie.alipay = function() {
 /**
  * 
  */
+ payOnlie.getPayStatus = function(orderId){
+	 
+	 
+	 
+ }
+
+
+
+
+
+
+
+/**
+ * 
+ */
 $(document).ready(payOnlie.main());

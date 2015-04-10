@@ -43,8 +43,21 @@
 		</where>
 	</select>
 
-	
-	
+	<!-- save -->
+	<insert id="save">
+		insert into t_pay (p_id, p_category, p_amount, p_pay_date, p_loginer, p_pay_type, p_buyer, p_trade_no) values (
+		#{id},
+		#{category, jdbcType=varchar},
+		#{amount},
+		#{payDate},
+		#{loginer},
+		#{payWay, jdbcType=varchar},
+		#{buyer, jdbcType=varchar},
+		#{tradeNo, jdbcType=varchar}
+		)
+	</insert>
+
+
 
 	<resultMap type="Pay" id="pay">
 		<id column="p_id" property="id" />
@@ -53,5 +66,7 @@
 		<result column="p_pay_date" property="payDate" />
 		<result column="p_loginer" property="loginer" />
 		<result column="p_pay_type" property="payWay" />
+		<result column="p_buyer" property="buyer" />
+		<result column="p_trade_no" property="tradeNo" />
 	</resultMap>
 </mapper>
