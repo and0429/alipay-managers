@@ -74,6 +74,7 @@ public class PayController {
 			pay.setPayDate(payDetail.getGmt_payment());
 			pay.setPayWay(0);
 			pay.setBuyer(payDetail.getBuyer_email());
+			pay.setTradeNo(payDetail.getTrade_no());
 
 			payService.save(pay);
 
