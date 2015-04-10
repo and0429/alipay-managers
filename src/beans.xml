@@ -59,7 +59,7 @@
 	</tx:advice>
 
 	<!-- ws client -->
-	<jaxws:client id="alipayService" serviceClass="com.collect.alipay.wsclient.AlipayPayService" address="http://localhost:8080/alipay/AlipayPayService" />
+	<jaxws:client id="alipayService" serviceClass="com.collect.alipay.wsclient.AlipayPayService" address="http://localhost/alipay/AlipayPayService" />
 
 	<!-- notifyUrl -->
 	<bean id="notifyUrl" class="java.lang.String">
