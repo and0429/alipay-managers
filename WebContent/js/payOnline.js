@@ -188,7 +188,7 @@ payOnlie.getPayStatus = function() {
 				$('#successMessage').html("<span style='padding-left: 180px;'>支付成功, 正在跳转。。。</span>");
 				window.setTimeout(function() {
 					$('#QRCodeModal').modal('hide');
-					payOnlie.dataTable.draw();
+					payOnlie.dataTable.rows().remove().draw();
 				}, 3000);
 			}
 
