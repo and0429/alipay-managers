@@ -89,4 +89,13 @@ public class PayController {
 		return payService.getById(id);
 	}
 
+	/**
+	 * 退款
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/refund/{tradeNo}/{refundTotal}", method = RequestMethod.GET)
+	public Object refund(Pay pay) {
+		return payService.refund(pay);
+	}
 }

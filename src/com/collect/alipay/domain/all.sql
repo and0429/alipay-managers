@@ -45,26 +45,28 @@ create table if not exists t_loginer(
 	l_username varchar(20) not null,
 	l_password varchar(40) not null,
 	l_role int,
-	l_custOrDistributorId varchar(40)
+	l_custOrDistributorId varchar(40),
+	l_status int
 );
 
 insert into t_loginer(l_id, l_username, l_password, l_role, l_custOrDistributorId) 
 values ('0', 'admin', '96e79218965eb72c92a549dd5a330112', 1, '0');
 
--- 师傅详情
+-- 支付详情
 drop table if exists t_pay;
 create table if not exists t_pay(
 	p_id varchar(40) primary key,
 	p_category varchar(40),
 	p_amount float,
-	p_pay_date timestamp,
+	p_pay_date timestamp default CURRENT_TIMESTAMP,
 	p_loginer varchar(20),
 	p_pay_Type int,
 	p_buyer varchar(30),
 	p_trade_no varchar(70),
 	p_cust_id varchar(40),
 	p_status varchar(20),
-	p_refund_total float
+	p_refund_total float,
+	p_refundTime varchar(30)
 );
 
 

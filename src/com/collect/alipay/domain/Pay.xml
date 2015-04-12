@@ -56,7 +56,8 @@
 		p_trade_no,
 		p_cust_id,
 		p_status,
-		p_refund_total) values (
+		p_refund_total,
+		p_refundTime) values (
 		#{id},
 		#{category, jdbcType=VARCHAR},
 		#{amount},
@@ -67,7 +68,8 @@
 		#{tradeNo, jdbcType=VARCHAR},
 		#{custId},
 		#{status, jdbcType=VARCHAR},
-		#{refundTotal}
+		#{refundTotal},
+		#{refundTime}
 		)
 	</insert>
 
@@ -78,7 +80,7 @@
 			<if test="tradeNo != null">
 				p_trade_no = #{tradeNo},
 			</if>
-			<if test="amount != 0">
+			<if test="amount != null">
 				p_amount = #{amount},
 			</if>
 			<if test="buyer != null">
@@ -90,8 +92,11 @@
 			<if test="status != null">
 				p_status = #{status},
 			</if>
-			<if test="refundTotal != 0">
-				p_refund_total = #{refundTotal}
+			<if test="refundTotal != null">
+				p_refund_total = #{refundTotal},
+			</if>
+			<if test="refundTime != null">
+				p_refundTime = #{refundTime}
 			</if>
 		</set>
 		where p_id = #{id}
@@ -112,5 +117,9 @@
 		<result column="p_pay_type" property="payWay" />
 		<result column="p_buyer" property="buyer" />
 		<result column="p_trade_no" property="tradeNo" />
+		<result column="p_cust_id" property="custId" />
+		<result column="p_status" property="status" />
+		<result column="p_refund_total" property="refundTotal" />
+		<result column="p_refundTime" property="refundTime" />
 	</resultMap>
 </mapper>

@@ -32,10 +32,13 @@
 									<thead>
 										<tr>
 											<th>订单号</th>
-											<th>支付金额</th>
+											<th>金额</th>
 											<th>支付日期</th>
 											<th>支付方式</th>
+											<th>状态</th>
 											<th>操作员</th>
+											<th>退款金额</th>
+											<th>退款时间</th>
 											<th>操作</th>
 										</tr>
 									</thead>
@@ -51,6 +54,34 @@
 		</div>
 	</div>
 	<hr class='hr-double' />
+
+	<!-- modal -->
+	<div class="modal fade hide" id="refundModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<i class="fa fa-plus-square"></i>
+					<h4 class="modal-title" id="myModalLabel">退款</h4>
+				</div>
+				<div class="modal-body">
+					<div class='control-group margin-T30'>
+						<label class='control-label'>退款金额</label>
+						<div class='controls'>
+							<input class='span3' type="text" id='refundtotal' maxlength="10" required="required" /> <input type="hidden" id='tradeNo'> <input type="hidden" id='amount'>
+						</div>
+					</div>
+					<div>
+						<span id="inputError" style="color: #FF0000"></span>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class='btn btn-info' data-dismiss="modal">取消</button>
+					<button type="button" class='btn btn-primary' id="saveBtn">确认</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 <script type="text/javascript" src="../js/sellDetail.js"></script>

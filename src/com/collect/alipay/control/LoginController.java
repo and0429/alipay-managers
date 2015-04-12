@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -133,12 +132,17 @@ public class LoginController {
 	public Object getLoginers(Loginer loginer, HttpSession session) {
 
 		Loginer loginerFromSession = (Loginer) session.getAttribute("loginer");
+
 		if (loginerFromSession == null) {
 			return Collections.EMPTY_LIST;
 		}
 
 		if (loginer.getCustOrDistributorId() == null) {
 			loginer.setCustOrDistributorId(loginerFromSession.getCustOrDistributorId());
+		}
+
+		if (loginerFromSession.getRole() == 1 && "0".equals(loginer.getCustOrDistributorId())) {
+			loginer.setCustOrDistributorId(null);
 		}
 
 		return loginerService.getLoginers(loginer);
@@ -163,6 +167,7 @@ public class LoginController {
 		String passwordMd5 = DigestUtils.md5Hex("111111");
 		loginer.setPassword(passwordMd5);
 		loginer.setId(UUIDUtil.randomUUID());
+		loginer.setStatus(1);
 		int result = loginerService.save(loginer);
 		return new Status(result);
 	}
@@ -173,10 +178,10 @@ public class LoginController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value = "/loginer/delete/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/loginer/delete/{id}/{status}", method = RequestMethod.GET)
 	@ResponseBody
-	public Object delete(@PathVariable String id) {
-		int result = loginerService.delete(id);
+	public Object delete(Loginer loginer) {
+		int result = loginerService.update(loginer);
 		return new Status(result);
 	}
 

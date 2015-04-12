@@ -103,18 +103,17 @@ public class LoginerServiceImpl extends BaseServiceImpl<Loginer> implements Logi
 
 		if (!loginers.isEmpty()) {
 			for (Loginer loginer2 : loginers) {
-
 				switch (loginer2.getRole()) {
-				case 2:
-					Distributor dis = disService.getById(loginer2.getCustOrDistributorId());
-					if (dis != null) {
-						loginer2.setCustOrDistributorName(dis.getName());
-					}
-					break;
 				case 3:
 					Cust cust = custService.getById(loginer2.getCustOrDistributorId());
 					if (cust != null) {
 						loginer2.setCustOrDistributorName(cust.getName());
+					}
+					break;
+				default:
+					Distributor dis = disService.getById(loginer2.getCustOrDistributorId());
+					if (dis != null) {
+						loginer2.setCustOrDistributorName(dis.getName());
 					}
 					break;
 				}

@@ -40,7 +40,7 @@ public class Pay extends BaseModel {
 	/**
 	 * 价格
 	 */
-	private float amount;
+	private Float amount;
 
 	/**
 	 * 0:支付宝<br/>
@@ -71,7 +71,76 @@ public class Pay extends BaseModel {
 	/**
 	 * 退款金额
 	 */
-	private float refundTotal;
+	private Float refundTotal;
+
+	/**
+	 * 退款时间
+	 */
+	private String refundTime;
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getTradeNo() {
+		return tradeNo;
+	}
+
+	public void setTradeNo(String tradeNo) {
+		this.tradeNo = tradeNo;
+	}
+
+	public String getBuyer() {
+		return buyer;
+	}
+
+	public void setBuyer(String buyer) {
+		this.buyer = buyer;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	public Float getAmount() {
+		return amount;
+	}
+
+	public void setAmount(Float amount) {
+		this.amount = amount;
+	}
+
+	public Integer getPayWay() {
+		return payWay;
+	}
+
+	public void setPayWay(Integer payWay) {
+		this.payWay = payWay;
+	}
+
+	public String getPayDate() {
+		return payDate;
+	}
+
+	public void setPayDate(String payDate) {
+		this.payDate = payDate;
+	}
+
+	public String getLoginer() {
+		return loginer;
+	}
+
+	public void setLoginer(String loginer) {
+		this.loginer = loginer;
+	}
 
 	public String getStatus() {
 		return status;
@@ -89,76 +158,22 @@ public class Pay extends BaseModel {
 		this.custId = custId;
 	}
 
-	public float getRefundTotal() {
+	public Float getRefundTotal() {
 		return refundTotal;
 	}
 
-	public void setRefundTotal(float refundTotal) {
+	public void setRefundTotal(Float refundTotal) {
 		this.refundTotal = refundTotal;
 	}
 
-	public float getAmount() {
-		return amount;
+	public String getRefundTime() {
+		return refundTime;
 	}
 
-	public String getBuyer() {
-		return buyer;
+	public void setRefundTime(String refundTime) {
+		this.refundTime = refundTime;
 	}
-
-	public String getCategory() {
-		return category;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public String getLoginer() {
-		return loginer;
-	}
-
-	public String getPayDate() {
-		return payDate;
-	}
-
-	public Integer getPayWay() {
-		return payWay;
-	}
-
-	public void setAmount(float amount) {
-		this.amount = amount;
-	}
-
-	public void setBuyer(String buyer) {
-		this.buyer = buyer;
-	}
-
-	public void setCategory(String category) {
-		this.category = category;
-	}
-
-	public String getTradeNo() {
-		return tradeNo;
-	}
-
-	public void setTradeNo(String tradeNo) {
-		this.tradeNo = tradeNo;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public void setLoginer(String loginer) {
-		this.loginer = loginer;
-	}
-
-	public void setPayDate(String payDate) {
-		this.payDate = payDate;
-	}
-
-	public void setPayWay(Integer payWay) {
-		this.payWay = payWay;
-	}
+	
+	
 
 }

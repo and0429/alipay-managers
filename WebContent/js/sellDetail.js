@@ -11,6 +11,7 @@ sellDetail.dataTable = undefined;
  */
 SellDetail.prototype.main = function() {
 	sellDetail.loadDataTable();
+	sellDetail.submitRefund();
 
 }
 
@@ -48,18 +49,28 @@ SellDetail.prototype.loadDataTable = function() {
 		}, {
 			"data" : "payWay"
 		}, {
+			"data" : "status"
+		}, {
 			"data" : "loginer"
+		}, {
+			"data" : "refundTotal"
+		}, {
+			"data" : "refundTime"
 		}, {
 			"data" : "id"
 		} ],
 
 		"columnDefs" : [ {
-			"targets" : 5,
+			"targets" : 8,
 			"render" : function(data, type, full, meta) {
-				var operationHtml = "<div id='operation' style='display: none;'>"
-				operationHtml += '<div class="refund" style="cursor:pointer" payId=' + data + '>退款</div>';
-				operationHtml += '</div>'
-				return operationHtml;
+
+				if (full.status === 'TRADE_SUCCESS' && full.payWay === 0) {
+					var operationHtml = "<div id='operation' style='display: none;'>"
+					operationHtml += '<div class="refund" style="cursor:pointer" amount=' + full.amount + ' payId=' + data + '>退款</div>';
+					operationHtml += '</div>'
+					return operationHtml;
+				}
+				return '';
 			}
 		}, {
 			"targets" : 3,
@@ -75,9 +86,32 @@ SellDetail.prototype.loadDataTable = function() {
 				}
 			}
 		}, {
-			"targets" : 2,
+			"targets" : [ 2, 7 ],
 			"render" : function(data, type, full, meta) {
-				return data.split('.')[0];
+				if (data) {
+					return data.split('.')[0];
+				}
+				return '';
+			}
+		}, {
+			"targets" : 0,
+			"render" : function(data, type, full, meta) {
+				return '订单号';
+			}
+		}, {
+			"targets" : 4,
+			"render" : function(data, type, full, meta) {
+				if (data) {
+					switch (data) {
+					case 'TRADE_SUCCESS':
+						return '付款成功';
+						break;
+					case 'REFUND_SUCCESS':
+						return '退款成功';
+						break;
+					}
+				}
+				return '';
 			}
 		} ],
 
@@ -122,9 +156,59 @@ SellDetail.prototype.showOrhideOperation = function() {
  */
 SellDetail.prototype.clickRefund = function() {
 	$('.refund').on('click', function() {
-		console.log($(this).attr('payId'))
+		$('#refundtotal').val('');
+		$('#inputError').html('');
+		$('#tradeNo').val($(this).attr('payId'));
+		$('#amount').val($(this).attr('amount'));
+
+		$('#refundModal').modal({
+			'backdrop' : 'static',
+			'show' : true
+		});
 	})
 };
+
+/**
+ * 
+ */
+SellDetail.prototype.submitRefund = function() {
+
+	$('#saveBtn').on('click', function() {
+
+		var refundTotal = $('#refundtotal').val();
+		var tradeNo = $('#tradeNo').val();
+		var amount = $('#amount').val();
+
+		var patton = /^[0-9]+([.]{1}[0-9]{1,2}){0,1}$/;
+
+		$.ajax({
+			url : '../pay/refund/' + tradeNo + '/' + refundTotal + '.do',
+			beforeSend : function() {
+				if (patton.test(refundTotal)) {
+
+					if (parseFloat(refundTotal) > parseFloat(amount)) {
+						$('#inputError').html('退款金额不能大于交易金额');
+						return false;
+					} else {
+						return true;
+					}
+
+				} else {
+					$('#inputError').html('请正确输入');
+					return false;
+				}
+			},
+			success : function(data) {
+				if (data) {
+					$('#refundModal').modal('hide');
+					sellDetail.dataTable.draw(false);
+				} else {
+					$('#inputError').html('退款失败，请重试');
+				}
+			}
+		});
+	});
+}
 
 SellDetail.prototype.clickSearch = function() {
 	$('#searchbtu').on('click', function() {

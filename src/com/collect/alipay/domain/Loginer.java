@@ -19,7 +19,7 @@ public class Loginer extends BaseModel {
 	public interface WithoutPasswordView {
 	};
 
-	public interface WithPasswordView extends WithoutPasswordView{
+	public interface WithPasswordView extends WithoutPasswordView {
 	};
 
 	/**
@@ -51,6 +51,19 @@ public class Loginer extends BaseModel {
 	 * 3、商户
 	 */
 	private String custOrDistributorId;
+
+	/**
+	 * 状态
+	 */
+	private Integer status;
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
 
 	/**
 	 * 所属的名称

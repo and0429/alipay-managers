@@ -199,6 +199,7 @@ payOnlie.moneyAlipay = function() {
 			success : function(data) {
 				if (data) {
 					alert('支付成功');
+					payOnlie.dataTable.rows().remove().draw();
 				}
 			}
 		});

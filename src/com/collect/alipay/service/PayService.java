@@ -24,4 +24,12 @@ public interface PayService extends BaseService<Pay> {
 	 */
 	Object pay(Pay pay, Loginer loginer);
 
+	/**
+	 * 退款
+	 * 
+	 * @param pay
+	 * @return
+	 */
+	Object refund(Pay pay);
+
 }

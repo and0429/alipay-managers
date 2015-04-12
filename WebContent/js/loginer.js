@@ -111,6 +111,8 @@ loginer.loadDataTable = function() {
 				}, {
 					"data" : "role"
 				}, {
+					"data" : "status"
+				}, {
 					"data" : "id"
 				} ],
 
@@ -139,12 +141,31 @@ loginer.loadDataTable = function() {
 						{
 							"targets" : 3,
 							"render" : function(data, type, full, meta) {
+								var result = '无';
+								if (data === 0) {
+									result = '已启用';
+								} else {
+									result = '已停用';
+								}
+
+								return result;
+							}
+						},
+						{
+							"targets" : 4,
+							"render" : function(data, type, full, meta) {
 								console.log(loginer.role);
 								var operationHtml = "<div id='operation' style='display: none;'>";
 								operationHtml += '<div class="icon-edit icon-blue-color updateBtn  margin-smallR3" title="修改" style="cursor:pointer" username=' + full.username
 										+ ' loginId=' + data + '></div>';
-								operationHtml += '<div class="icon-trash icon-blue-color margin-smallR3 deleteBtn" title="删除" style="cursor:pointer" loginId=' + data + '></div>';
 								if (loginer.role === 1) {
+									if (full.status === 0) {
+										operationHtml += '<div class="icon-trash icon-blue-color margin-smallR3 deleteBtn" title="停用" style="cursor:pointer" loginId=' + data
+												+ '></div>';
+									} else {
+										operationHtml += '<div class="icon-trash icon-blue-color margin-smallR3 enabledBtn" title="启用" style="cursor:pointer" loginId=' + data
+												+ '></div>';
+									}
 									operationHtml += "<div class='icon-blue-color restpassword icon-trash icon-key' title='重置密码' style='cursor:pointer' loginId='" + data
 											+ "'></div>";
 								}
@@ -156,6 +177,7 @@ loginer.loadDataTable = function() {
 				'drawCallback' : function(settings) {
 					loginer.showOrhideOperation();
 					loginer.clickDelete();
+					loginer.clickEnable();
 					loginer.clickEdit();
 					loginer.restPassword();
 				},
@@ -325,9 +347,29 @@ loginer.clickDelete = function() {
 
 	$('.deleteBtn').on('click', function() {
 		var id = $(this).attr('loginId');
-		if (window.confirm('确定要删除此条记录吗？')) {
+		if (window.confirm('确定要停用此用户吗？')) {
 			$.ajax({
-				'url' : '../loginer/delete/' + id + '.do',
+				'url' : '../loginer/delete/' + id + '/1.do',
+				'success' : function(data) {
+					if (data.code) {
+						loginer.DataTable.draw(false);
+					}
+				}
+			});
+		}
+	});
+};
+
+/**
+ * enable a entity
+ */
+loginer.clickEnable = function() {
+
+	$('.enabledBtn').on('click', function() {
+		var id = $(this).attr('loginId');
+		if (window.confirm('您确定要启用此用户吗')) {
+			$.ajax({
+				'url' : '../loginer/delete/' + id + '/0.do',
 				'success' : function(data) {
 					if (data.code) {
 						loginer.DataTable.draw(false);

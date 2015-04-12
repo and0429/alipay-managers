@@ -14,13 +14,14 @@
 
 	<!-- save a entity -->
 	<insert id="save">
-		insert into t_loginer (l_id, l_username, l_password, l_role, l_custOrDistributorId)
+		insert into t_loginer (l_id, l_username, l_password, l_role, l_custOrDistributorId, l_status)
 		values (
 		#{id},
 		#{username},
 		#{password},
 		#{role},
-		#{custOrDistributorId}
+		#{custOrDistributorId},
+		#{status}
 		)
 	</insert>
 
@@ -29,16 +30,14 @@
 		update t_loginer
 		<set>
 			<if test="password != null and password != ''">
-				l_password = #{password}
+				l_password = #{password},
+			</if>
+			<if test="status != null">
+				l_status = #{status}
 			</if>
 		</set>
 		where l_id = #{id}
 	</update>
-
-	<!-- delete a entity -->
-	<delete id="delete">
-		delete from t_loginer where l_id = #{id}
-	</delete>
 
 	<!-- get pager data -->
 	<select id="getpager" resultMap="loginer">
@@ -81,6 +80,7 @@
 	<resultMap type="Loginer" id="loginer">
 		<id column="l_id" property="id" />
 		<result column="l_username" property="username" />
+		<result column="l_status" property="status" />
 		<result column="l_password" property="password" />
 		<result column="l_role" property="role" />
 		<result column="l_custOrDistributorId" property="custOrDistributorId" />

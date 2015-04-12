@@ -13,6 +13,8 @@ import com.collect.alipay.service.PayService;
 import com.collect.alipay.util.UUIDUtil;
 import com.collect.alipay.wsclient.AlipayPayService;
 import com.collect.alipay.wsclient.PrecreateRequest;
+import com.collect.alipay.wsclient.RefundRequest;
+import com.collect.alipay.wsclient.RefundResponse;
 
 /**
  * 支付的业务类
@@ -48,7 +50,7 @@ public class PayServiceImpl extends BaseServiceImpl<Pay> implements PayService {
 		pay.setPayDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 		pay.setCustId(loginer.getCustOrDistributorId());
 
-		int result = this.save(pay);
+		this.save(pay);
 
 		switch (pay.getPayWay()) {
 		case 0:
@@ -57,7 +59,7 @@ public class PayServiceImpl extends BaseServiceImpl<Pay> implements PayService {
 			pr.setProductCode("QR_CODE_OFFLINE");
 			pr.setRemark("102");
 			pr.setSubject("102");
-			pr.setTotal(pay.getAmount() + "");
+			pr.setTotal(pay.getAmount().floatValue() + "");
 			pr.setTradeNo(tradeNo);
 			pr.setUser(loginer == null ? "" : loginer.getUsername());
 			pr.setNotifyUrl(notifyUrl);
@@ -65,6 +67,9 @@ public class PayServiceImpl extends BaseServiceImpl<Pay> implements PayService {
 			return alipayService.alipayPrecreate(pr);
 
 		case 1:
+			Pay pay2 = this.getById(tradeNo);
+			pay2.setStatus("TRADE_SUCCESS");
+			int result = this.update(pay2);
 			return new Status(result);
 		}
 
@@ -72,4 +77,31 @@ public class PayServiceImpl extends BaseServiceImpl<Pay> implements PayService {
 
 	}
 
+	/**
+	 * 
+	 */
+	@Override
+	public Object refund(Pay pay) {
+
+		RefundRequest rfreq = new RefundRequest();
+		rfreq.setAmount(pay.getRefundTotal().floatValue() + "");
+		rfreq.setTradeNo(pay.getTradeNo());
+
+		RefundResponse rfresp = alipayService.alipayRefund(rfreq);
+
+		if (rfresp == null) {
+			return null;
+		}
+
+		Pay payFromDb = this.getById(pay.getTradeNo());
+
+		payFromDb.setAmount(payFromDb.getAmount() - pay.getRefundTotal());
+		payFromDb.setRefundTotal(pay.getRefundTotal());
+		payFromDb.setRefundTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+		payFromDb.setStatus("REFUND_SUCCESS");
+
+		int result = this.update(payFromDb);
+
+		return new Status(result);
+	}
 }
