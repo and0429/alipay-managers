@@ -23,7 +23,7 @@
 			<div class='caret'></div>
 			<div class='form-wrapper'>
 				<h1 class='text-center'>登陆</h1>
-				<sf:form modelAttribute="loginer" method="post">
+				<sf:form modelAttribute="loginer" method="post" action="login.do">
 					<div class='row-fluid'>
 						<div class='span12 icon-over-input'>
 							<sf:input autofocus="autofocus" required="required" path="username" class="span12" placeholder="用户名" />
