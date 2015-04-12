@@ -45,17 +45,57 @@
 
 	<!-- save -->
 	<insert id="save">
-		insert into t_pay (p_id, p_category, p_amount, p_pay_date, p_loginer, p_pay_type, p_buyer, p_trade_no) values (
+		insert into t_pay (
+		p_id,
+		p_category,
+		p_amount,
+		p_pay_date,
+		p_loginer,
+		p_pay_type,
+		p_buyer,
+		p_trade_no,
+		p_cust_id,
+		p_status,
+		p_refund_total) values (
 		#{id},
 		#{category, jdbcType=VARCHAR},
 		#{amount},
 		#{payDate},
-		#{loginer},
+		#{loginer, jdbcType=VARCHAR},
 		#{payWay, jdbcType=VARCHAR},
 		#{buyer, jdbcType=VARCHAR},
-		#{tradeNo, jdbcType=VARCHAR}
+		#{tradeNo, jdbcType=VARCHAR},
+		#{custId},
+		#{status, jdbcType=VARCHAR},
+		#{refundTotal}
 		)
 	</insert>
+
+	<!-- update -->
+	<update id="update">
+		update t_pay
+		<set>
+			<if test="tradeNo != null">
+				p_trade_no = #{tradeNo},
+			</if>
+			<if test="amount != 0">
+				p_amount = #{amount},
+			</if>
+			<if test="buyer != null">
+				p_buyer = #{buyer},
+			</if>
+			<if test="payDate != null">
+				p_pay_date = #{payDate},
+			</if>
+			<if test="status != null">
+				p_status = #{status},
+			</if>
+			<if test="refundTotal != 0">
+				p_refund_total = #{refundTotal}
+			</if>
+		</set>
+		where p_id = #{id}
+	</update>
 
 	<!-- get by id -->
 	<select id="getById" resultMap="pay">

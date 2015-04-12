@@ -2,6 +2,7 @@ var payOnlie = new Object();
 
 payOnlie.dataTable = undefined;
 payOnlie.outTradeNo = undefined;
+payOnlie.payWay = undefined;
 
 /**
  * main method
@@ -46,9 +47,9 @@ payOnlie.loadDataTables = function() {
 
 		"columns" : [ {
 			"data" : "category"
-		}, {
-			"data" : "paytype"
-		}, {
+		},/*
+			 * { "data" : "paytype" },
+			 */{
 			"data" : "amount"
 		} ],
 
@@ -60,6 +61,7 @@ payOnlie.loadDataTables = function() {
 		"initComplete" : function() {
 			payOnlie.addButton();
 			payOnlie.alipay();
+			payOnlie.moneyAlipay();
 			payOnlie.deleteRow();
 		}
 	});
@@ -88,8 +90,8 @@ payOnlie.save2Table = function() {
 		if (patton.test($('#amount').val())) {
 			payOnlie.dataTable.row.add({
 				"category" : $('#categorySelect').val(),
-				"paytype" : $('#payType').val(),
-				"amount" : $('#amount').val(),
+				// "paytype" : $('#payType').val(),
+				"amount" : $('#amount').val()
 			}).draw();
 		} else {
 			$('#amount')[0].focus();
@@ -115,7 +117,7 @@ payOnlie.total = function(api) {
 
 	var total = 0;
 
-	var totalArr = api.column(2).data().toArray();
+	var totalArr = api.column(1).data().toArray();
 
 	for (var int = 0; int < totalArr.length; int++) {
 		total = parseFloat(total) + parseFloat(totalArr[int]);
@@ -129,7 +131,8 @@ payOnlie.total = function(api) {
 payOnlie.addButton = function() {
 
 	var toolbarHtml = "";
-	toolbarHtml += "<button class='btn btn-warning' id='alipay' style='margin-bottom: 10px;'>确认支付</button>";
+	toolbarHtml += "<button class='btn btn-warning' id='alipay' style='margin-bottom: 10px;'>支付宝支付</button>";
+	toolbarHtml += "<button class='btn btn-warning' id='moneyAlipay' style='margin-bottom: 10px; margin-left: 10px'>现金支付</button>";
 	$('.toolbar').html(toolbarHtml);
 
 	var totalHtml = "";
@@ -156,7 +159,8 @@ payOnlie.alipay = function() {
 			url : '../pay/prepay.do',
 			type : "POST",
 			data : {
-				'total' : $('#totalValue').html()
+				'amount' : $('#totalValue').html(),
+				'payWay' : 0,
 			},
 			success : function(data) {
 				$('#QRCode').attr('src', data.smallPicUrl);
@@ -174,6 +178,35 @@ payOnlie.alipay = function() {
 };
 
 /**
+ * 现金支付
+ */
+payOnlie.moneyAlipay = function() {
+
+	$('#moneyAlipay').on('click', function() {
+
+		if ($('#totalValue').html() == '0.00') {
+			alert('请先添加商品！');
+			return;
+		}
+
+		$.ajax({
+			url : '../pay/prepay.do',
+			type : "POST",
+			data : {
+				'amount' : $('#totalValue').html(),
+				'payWay' : 1,
+			},
+			success : function(data) {
+				if (data) {
+					alert('支付成功');
+				}
+			}
+		});
+	});
+
+}
+
+/**
  * get pay status;
  */
 payOnlie.getPayStatus = function() {
@@ -183,13 +216,13 @@ payOnlie.getPayStatus = function() {
 	$.ajax({
 		url : '../pay/getStatus/' + payOnlie.outTradeNo + '.do',
 		success : function(data) {
-			if (data) {
+			if (data.status === 'TRADE_SUCCESS') {
 				window.clearInterval(payOnlie.timeId);
 				$('#successMessage').html("<span style='padding-left: 180px;'>支付成功, 正在跳转。。。</span>");
 				window.setTimeout(function() {
 					$('#QRCodeModal').modal('hide');
 					payOnlie.dataTable.rows().remove().draw();
-				}, 3000);
+				}, 5000);
 			}
 
 		}

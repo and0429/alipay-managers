@@ -2,7 +2,6 @@ package com.collect.alipay.service;
 
 import com.collect.alipay.domain.Loginer;
 import com.collect.alipay.domain.Pay;
-import com.collect.alipay.wsclient.PrecreateResponse;
 
 /**
  * 支付的业务接口
@@ -23,6 +22,6 @@ public interface PayService extends BaseService<Pay> {
 	 *            登录用户
 	 * @return 支付结果
 	 */
-	PrecreateResponse pay(String total, Loginer loginer);
+	Object pay(Pay pay, Loginer loginer);
 
 }

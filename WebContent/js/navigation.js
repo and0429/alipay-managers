@@ -7,6 +7,12 @@ navigation.main = function() {
 	navigation.setUser();
 };
 
+$.ajaxSetup({
+	beforeSend : function() {
+
+	}
+});
+
 /**
  * 获取在线用户的用户名
  */
@@ -18,7 +24,13 @@ navigation.setUser = function() {
 		dataType : "json",
 		success : function(data) {
 			if (data !== null) {
+				if (data.role !== 3) {
+					$('.cust').remove();
+				} else {
+					$('.distributor').remove();
+				}
 				$('.user-name').html(data.username);
+				$('.nav').show();
 			}
 		}
 	});

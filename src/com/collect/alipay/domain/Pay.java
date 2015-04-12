@@ -58,6 +58,45 @@ public class Pay extends BaseModel {
 	 */
 	private String loginer;
 
+	/**
+	 * 支付状态
+	 */
+	private String status;
+
+	/**
+	 * 商户Id
+	 */
+	private String custId;
+
+	/**
+	 * 退款金额
+	 */
+	private float refundTotal;
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getCustId() {
+		return custId;
+	}
+
+	public void setCustId(String custId) {
+		this.custId = custId;
+	}
+
+	public float getRefundTotal() {
+		return refundTotal;
+	}
+
+	public void setRefundTotal(float refundTotal) {
+		this.refundTotal = refundTotal;
+	}
+
 	public float getAmount() {
 		return amount;
 	}

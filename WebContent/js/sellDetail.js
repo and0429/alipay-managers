@@ -40,7 +40,7 @@ SellDetail.prototype.loadDataTable = function() {
 			}
 		},
 		"columns" : [ {
-			"data" : "buyer"
+			"data" : "id"
 		}, {
 			"data" : "amount"
 		}, {

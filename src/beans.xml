@@ -68,4 +68,11 @@
 		</constructor-arg>
 	</bean>
 
+	<!-- trade NO. prefix -->
+	<bean id="tradeNoPrefix" class="java.lang.String">
+		<constructor-arg>
+			<value>101</value>
+		</constructor-arg>
+	</bean>
+
 </beans>

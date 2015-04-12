@@ -51,6 +51,7 @@ create table if not exists t_loginer(
 insert into t_loginer(l_id, l_username, l_password, l_role, l_custOrDistributorId) 
 values ('0', 'admin', '96e79218965eb72c92a549dd5a330112', 1, '0');
 
+-- 师傅详情
 drop table if exists t_pay;
 create table if not exists t_pay(
 	p_id varchar(40) primary key,
@@ -60,7 +61,10 @@ create table if not exists t_pay(
 	p_loginer varchar(20),
 	p_pay_Type int,
 	p_buyer varchar(30),
-	p_trade_no varchar(70)
+	p_trade_no varchar(70),
+	p_cust_id varchar(40),
+	p_status varchar(20),
+	p_refund_total float
 );
 
 
@@ -70,18 +74,4 @@ create table if not exists t_pay_month_loginer(
 	pmc_month varchar(15),
 	pmc_loginer_id varchar(40),
 	pmc_total_money float
-);
-
-create or replace view  t_pay_month_cust as 
-(
-    select 
-    sum(pmc_total_money) as pc_total_money,
-    l_custOrDistributorId as pc_custid,
-    pmc_id as pc_id,
-    pmc_month as pc_month
-    from 
-    t_pay_month_loginer 
-    left join t_loginer 
-    on pmc_loginer_id = l_id 
-    group by l_custOrDistributorId
 );

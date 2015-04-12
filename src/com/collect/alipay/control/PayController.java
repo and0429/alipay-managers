@@ -54,9 +54,9 @@ public class PayController {
 	 * @return
 	 */
 	@RequestMapping(value = "/prepay", method = RequestMethod.POST)
-	public Object prePay(String total, ModelMap model) {
+	public Object prePay(Pay pay, ModelMap model) {
 		Loginer loginer = (Loginer) model.get("loginer");
-		return payService.pay(total, loginer);
+		return payService.pay(pay, loginer);
 	}
 
 	/**
@@ -65,25 +65,25 @@ public class PayController {
 	@RequestMapping(value = "/alipayNotify", method = RequestMethod.POST)
 	public String alipayNotify(PayDetail payDetail) {
 
-		if (payDetail.getTrade_status().equals("TRADE_SUCCESS")) {
+		Pay pay = new Pay();
+		pay.setAmount(Float.parseFloat(payDetail.getTotal_fee()));
+		pay.setCategory(payDetail.getSubject());
+		pay.setId(payDetail.getOut_trade_no());
+		pay.setPayDate(payDetail.getGmt_payment());
+		pay.setBuyer(payDetail.getBuyer_email());
+		pay.setTradeNo(payDetail.getTrade_no());
+		pay.setStatus(payDetail.getTrade_status());
 
-			Pay pay = new Pay();
-			pay.setAmount(Float.parseFloat(payDetail.getTotal_fee()));
-			pay.setCategory(payDetail.getSubject());
-			pay.setId(payDetail.getOut_trade_no());
-			pay.setLoginer(payDetail.getLonginer());
-			pay.setPayDate(payDetail.getGmt_payment());
-			pay.setPayWay(0);
-			pay.setBuyer(payDetail.getBuyer_email());
-			pay.setTradeNo(payDetail.getTrade_no());
-
-			payService.save(pay);
-
-		}
+		payService.update(pay);
 
 		return "success";
 	}
 
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping(value = "/getStatus/{id}", method = RequestMethod.GET)
 	public Object getStatus(@PathVariable String id) {
 		return payService.getById(id);
