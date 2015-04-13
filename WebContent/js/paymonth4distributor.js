@@ -53,21 +53,13 @@ Paymonth4distributor.prototype.loadDataTable = function() {
 		}, {
 			"data" : "deduct"
 		}, {
-			"data" : "deduct"
+			"data" : "deductMoney"
 		} ],
 
 		"columnDefs" : [ {
-			"targets" : [ 2, 3 ],
+			"targets" : [ 2, 3, 4 ],
 			"render" : function(data, type, full, meta) {
 				return data.toFixed(2);
-			}
-		}, {
-			"targets" : 4,
-			"render" : function(data, type, full, meta) {
-
-				console.log(data * full.total);
-
-				return (data * full.total).toFixed(2);
 			}
 		} ],
 

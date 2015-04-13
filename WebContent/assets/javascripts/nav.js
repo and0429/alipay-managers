@@ -66,7 +66,6 @@
 				dataType : "html",
 				beforeSend : function() {
 					$.ajax({
-						type : "GET",
 						url : "../getloginer.do",
 						dataType : "json",
 						async : false,
@@ -95,11 +94,32 @@
 			sellDetail : '../html/selldetail/sellDetail.html',
 			paymonth4loginer : '../html/PayMonth4Loginer/paymonth4loginer.html',
 			paymonth4distributor : '../html/paymonth4distributor/paymonth4distributor.html',
-			sellDetail4shangtong : '../html/sellDetail4shangtong/sellDetail4shangtong.html'
+			sellDetail4shangtong : '../html/sellDetail4shangtong/sellDetail4shangtong.html',
+			paymonth : '../html/paymonth/paymonth.html'
 		};
 
+		$.ajax({
+			type : "GET",
+			url : "../getloginer.do",
+			async : false,
+			dataType : "json",
+			success : function(data) {
+				if (data !== null) {
+					if (data.role !== 3) {
+						$('.cust').remove();
+					} else {
+						$('.distributor').remove();
+					}
+					$('.user-name').html(data.username);
+					$('.nav').show();
+				}
+			}
+		});
+
+		var firstPageName = $($('.pageLi')[0]).attr('pageName');
+
 		// 默认首先加载信息看板页面
-		pageControl.load("distributorManage");
+		pageControl.load(firstPageName);
 
 		return $(document).bind("nav-open", function(event, params) {
 			body.addClass("main-nav-opened").removeClass("main-nav-closed");

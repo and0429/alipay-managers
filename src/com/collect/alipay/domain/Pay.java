@@ -67,6 +67,10 @@ public class Pay extends BaseModel {
 	 * 商户Id
 	 */
 	private String custId;
+	/**
+	 * 商户名字
+	 */
+	private String custName;
 
 	/**
 	 * 退款金额
@@ -78,102 +82,108 @@ public class Pay extends BaseModel {
 	 */
 	private String refundTime;
 
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public String getTradeNo() {
-		return tradeNo;
-	}
-
-	public void setTradeNo(String tradeNo) {
-		this.tradeNo = tradeNo;
+	public Float getAmount() {
+		return amount;
 	}
 
 	public String getBuyer() {
 		return buyer;
 	}
 
-	public void setBuyer(String buyer) {
-		this.buyer = buyer;
-	}
-
 	public String getCategory() {
 		return category;
-	}
-
-	public void setCategory(String category) {
-		this.category = category;
-	}
-
-	public Float getAmount() {
-		return amount;
-	}
-
-	public void setAmount(Float amount) {
-		this.amount = amount;
-	}
-
-	public Integer getPayWay() {
-		return payWay;
-	}
-
-	public void setPayWay(Integer payWay) {
-		this.payWay = payWay;
-	}
-
-	public String getPayDate() {
-		return payDate;
-	}
-
-	public void setPayDate(String payDate) {
-		this.payDate = payDate;
-	}
-
-	public String getLoginer() {
-		return loginer;
-	}
-
-	public void setLoginer(String loginer) {
-		this.loginer = loginer;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
 	}
 
 	public String getCustId() {
 		return custId;
 	}
 
-	public void setCustId(String custId) {
-		this.custId = custId;
+	public String getCustName() {
+		return custName;
 	}
 
-	public Float getRefundTotal() {
-		return refundTotal;
+	public String getId() {
+		return id;
 	}
 
-	public void setRefundTotal(Float refundTotal) {
-		this.refundTotal = refundTotal;
+	public String getLoginer() {
+		return loginer;
+	}
+
+	public String getPayDate() {
+		return payDate;
+	}
+
+	public Integer getPayWay() {
+		return payWay;
 	}
 
 	public String getRefundTime() {
 		return refundTime;
 	}
 
+	public Float getRefundTotal() {
+		return refundTotal;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public String getTradeNo() {
+		return tradeNo;
+	}
+
+	public void setAmount(Float amount) {
+		this.amount = amount;
+	}
+
+	public void setBuyer(String buyer) {
+		this.buyer = buyer;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	public void setCustId(String custId) {
+		this.custId = custId;
+	}
+
+	public void setCustName(String custName) {
+		this.custName = custName;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public void setLoginer(String loginer) {
+		this.loginer = loginer;
+	}
+
+	public void setPayDate(String payDate) {
+		this.payDate = payDate;
+	}
+
+	public void setPayWay(Integer payWay) {
+		this.payWay = payWay;
+	}
+
 	public void setRefundTime(String refundTime) {
 		this.refundTime = refundTime;
 	}
-	
-	
+
+	public void setRefundTotal(Float refundTotal) {
+		this.refundTotal = refundTotal;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public void setTradeNo(String tradeNo) {
+		this.tradeNo = tradeNo;
+	}
 
 }

@@ -69,11 +69,13 @@ create table if not exists t_pay(
 	p_refundTime varchar(30)
 );
 
-
-drop table if exists t_pay_month_loginer;
-create table if not exists t_pay_month_loginer(
+-- 商户月账单
+drop table if exists t_pay_month_cust;
+create table if not exists t_pay_month_cust(
 	pmc_id varchar(40) primary key,
 	pmc_month varchar(15),
-	pmc_loginer_id varchar(40),
-	pmc_total_money float
+	pmc_cust_id varchar(40),
+	pmc_total_money float,
+	pmc_deduct float,
+	pmc_deduct_money float
 );

@@ -41,40 +41,26 @@ SellDetail4shangtong.prototype = {
 				}
 			},
 			"columns" : [ {
-				"data" : "category"
-			}, {
 				"data" : "amount"
 			}, {
 				"data" : "payDate"
 			}, {
-				"data" : "payWay"
+				"data" : "custName"
 			}, {
-				"data" : "cust.name"
+				"data" : "refundTotal"
 			}, {
-				"data" : "loginer"
+				"data" : "refundTime"
 			} ],
 
 			"columnDefs" : [ {
-				"targets" : 1,
+				"targets" : [ 0, 3 ],
 				"render" : function(data, type, full, meta) {
 					return data.toFixed(2);
 				}
 			}, {
-				"targets" : 2,
+				"targets" : 1,
 				"render" : function(data, type, full, meta) {
 					return data.split('.')[0];
-				}
-			}, {
-				"targets" : 3,
-				"render" : function(data, type, full, meta) {
-					switch (data) {
-					case 0:
-						return '支付宝'
-						break;
-					case 1:
-						return '现金'
-						break;
-					}
 				}
 			} ],
 

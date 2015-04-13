@@ -28,7 +28,7 @@ PayMonth4Loginer.prototype.loadDataTable = function() {
 		"dom" : 'l<"toolbar">rtip',
 		"language" : util.dataTableLanguage(),
 		"ajax" : {
-			'url' : "../payMonth4Loginer/payMonths.do",
+			'url' : "../paymonth4cust/payMonth4loginer.do",
 			'dateType' : 'json',
 			'type' : 'POST',
 			'data' : function(d) {
@@ -40,9 +40,11 @@ PayMonth4Loginer.prototype.loadDataTable = function() {
 		"columns" : [ {
 			"data" : "month"
 		}, {
-			"data" : "loginer.username"
-		}, {
 			"data" : "total"
+		}, {
+			"data" : "deduct"
+		}, {
+			"data" : "deductMoney"
 		} ],
 
 		"columnDefs" : [ {
@@ -53,8 +55,6 @@ PayMonth4Loginer.prototype.loadDataTable = function() {
 		} ],
 
 		'drawCallback' : function(settings) {
-			// sellDetail.showOrhideOperation();
-			// sellDetail.clickRefund();
 
 		},
 		'initComplete' : function() {
@@ -70,7 +70,7 @@ PayMonth4Loginer.prototype.loadDataTable = function() {
  */
 PayMonth4Loginer.prototype.addToobar = function() {
 	var toolbarhtml = '';
-	toolbarhtml += "<input type='month' id='month' placeholder='结束时间' style='margin-left: 10px;'/>";
+	toolbarhtml += "<input type='month' id='month' placeholder='请选择月份' style='margin-left: 10px;'/>";
 	toolbarhtml += "<button class='btn btn-primary' id='searchbtu' style='margin-bottom: 10px; margin-left: 10px;'>查询</button>";
 	$('.toolbar').html(toolbarhtml);
 };

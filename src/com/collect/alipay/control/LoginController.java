@@ -31,6 +31,8 @@ public class LoginController {
 
 	public static final String LOGIN_ERROR = "用户名或密码错误";
 
+	private static final String LOGIN_DISABLE = "此用户为停用状态";
+
 	@Inject
 	private LoginerService loginerService;
 
@@ -67,6 +69,11 @@ public class LoginController {
 
 		if (LoginerResult == null) {
 			loginer.setLoginMessage(LOGIN_ERROR);
+			return "index";
+		}
+
+		if (LoginerResult.getStatus() == 1) {
+			loginer.setLoginMessage(LOGIN_DISABLE);
 			return "index";
 		}
 

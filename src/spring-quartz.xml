@@ -6,7 +6,7 @@
 
 	<!-- 每月一号统计上月的月账单 -->
 	<bean id="saveStatistic4CustJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
-		<property name="targetObject" ref="payMonth4LoginerService" />
+		<property name="targetObject" ref="payMonth4CustService" />
 		<property name="targetMethod" value="saveStatistic4Cust" />
 		<property name="concurrent" value="false" />
 	</bean>

@@ -53,7 +53,7 @@ public class Loginer extends BaseModel {
 	private String custOrDistributorId;
 
 	/**
-	 * 状态
+	 * 状态 0:启用 1:停用
 	 */
 	private Integer status;
 

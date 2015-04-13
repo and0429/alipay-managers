@@ -6,14 +6,12 @@ import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-import static org.apache.log4j.Logger.getLogger;
 
 import com.collect.alipay.control.dto.DataTableDto;
 import com.collect.alipay.domain.Loginer;
 import com.collect.alipay.domain.PayMonth4Loginer;
 import com.collect.alipay.service.LoginerService;
 import com.collect.alipay.service.PayMonth4LoginerService;
-import com.collect.alipay.util.UUIDUtil;
 
 /**
  * 月总账单的业务类
@@ -52,38 +50,5 @@ public class PayMonth4LoginerServiceImpl extends BaseServiceImpl<PayMonth4Logine
 
 		return new DataTableDto<PayMonth4Loginer>(loginer.getDraw(), count, data);
 
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.collect.alipay.service.PayMonth4LoginerService#getStatistics4Cust()
-	 */
-	@Override
-	public List<PayMonth4Loginer> getStatistics4Cust() {
-		return sqlSession.selectList(clazz.getName() + ".getStatistics4Cust");
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.collect.alipay.service.PayMonth4LoginerService#saveStatistic4Cust()
-	 */
-	@Override
-	public void saveStatistic4Cust() {
-
-		List<PayMonth4Loginer> payMonth4Loginers = this.getStatistics4Cust();
-
-		for (int i = 0; i < payMonth4Loginers.size(); i++) {
-
-			PayMonth4Loginer pm = payMonth4Loginers.get(i);
-			pm.setId(UUIDUtil.randomUUID());
-
-			this.save(pm);
-		}
-
-		getLogger(this.clazz).info("======================= Statistic the pay of month ================");
 	}
 }

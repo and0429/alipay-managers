@@ -7,33 +7,100 @@
 
 	<!-- get pager data -->
 	<select id="getpager" resultMap="payMonth4Cust">
-		select
-		pmc.*,
-		c.*,
-		(select de_val from t_deduct) as deduct
-		from t_pay_month_cust pmc
-		left join t_cust c
-		on pc_custid = c_id
+		select * 
+		from t_pay_month_cust
+		left join t_cust
+		on pmc_cust_id = c_id
 		<include refid="whereCondition" />
 		limit #{payMonth4Cust.start}, #{payMonth4Cust.length}
 	</select>
 
 	<!-- get count -->
 	<select id="getCountWithCondition" resultType="integer">
-		select count(pc_id) from t_pay_month_cust
+		select count(pmc_id) from t_pay_month_cust
 		left join t_cust
-		on pc_custid = c_id
+		on pmc_cust_id = c_id
 		<include refid="whereCondition" />
 	</select>
 
+	<!-- yue tong ji -->
+	<select id="getStatistics4Cust" resultMap="payMonth4Cust">
+		select
+		date_format(p_pay_date, '%Y-%m') pmc_month,
+		p_cust_id pmc_cust_id,
+		sum(p_amount) pmc_total_money,
+		(select de_val from t_deduct) pmc_deduct,
+		(sum(p_amount) * (select de_val from t_deduct)) pmc_deduct_money,
+		c_name
+		from t_pay left join t_cust on p_cust_id = c_id
+		where p_pay_type = 0
+		and date_format(p_pay_date, '%Y-%m') = date_format(DATE_SUB(curdate(), INTERVAL 1 DAY), '%Y-%m')
+		and (p_status = 'REFUND_SUCCESS' or p_status = 'TRADE_SUCCESS') group by p_cust_id;
+	</select>
+
+
+	<!-- save -->
+	<insert id="save">
+		insert into t_pay_month_cust (
+		pmc_id,
+		pmc_month,
+		pmc_cust_id,
+		pmc_total_money,
+		pmc_deduct,
+		pmc_deduct_money
+		) values (
+		#{id},
+		#{month},
+		#{cust.id},
+		#{total},
+		#{deduct},
+		#{deductMoney}
+		)
+	</insert>
+
+
+	<select id="getPayMonth4Loginer" resultMap="payMonth4Cust">
+		select *
+		from t_pay_month_cust
+		left join t_cust
+		on pmc_cust_id = c_id
+		<where>
+			<if test="month != null">
+				pmc_month = #{month}
+			</if>
+			<if test="cust != null and cust.id != null">
+				and pmc_cust_id = #{cust.id}
+			</if>
+		</where>
+		limit #{start}, #{length}
+	</select>
+
+
+	<select id="getCountPayMonth4Loginer" resultType="integer">
+		select count(pmc_id)
+		from t_pay_month_cust
+		left join t_cust
+		on pmc_cust_id = c_id
+		<where>
+			<if test="month != null">
+				pmc_month = #{month}
+			</if>
+			<if test="cust != null and cust.id != null">
+				and pmc_cust_id = #{cust.id}
+			</if>
+		</where>
+	</select>
+
+
 	<!-- result map -->
 	<resultMap type="PayMonth4Cust" id="payMonth4Cust">
-		<id column="pc_id" property="id" />
-		<result column="pc_month" property="month" />
-		<result column="pc_total_money" property="total" />
-		<result column="deduct" property="deduct" />
+		<id column="pmc_id" property="id" />
+		<result column="pmc_month" property="month" />
+		<result column="pmc_total_money" property="total" />
+		<result column="pmc_deduct" property="deduct" />
+		<result column="pmc_deduct_money" property="deductMoney" />
 		<association property="cust" javaType="Cust">
-			<id column="c_id" property="id" />
+			<id column="pmc_cust_id" property="id" />
 			<result column="c_name" property="name" />
 		</association>
 	</resultMap>
@@ -42,7 +109,7 @@
 	<sql id="whereCondition">
 		<where>
 			<if test="payMonth4Cust.month != null">
-				pc_month = #{payMonth4Cust.month}
+				pmc_month = #{payMonth4Cust.month}
 			</if>
 			<if test="payMonth4Cust.cust.name != null">
 				and c_name like '%${payMonth4Cust.cust.name}%'

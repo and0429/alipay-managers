@@ -29,6 +29,7 @@ public class PayMonth4CustController {
 
 	@RequestMapping(value = "/paymonth4custs", method = RequestMethod.POST)
 	public Object paymonth4custs(PayMonth4Cust payMonth4Cust, String distributorId, String custName, ModelMap modelMap) {
+
 		Cust c = new Cust();
 		c.setName(custName);
 		payMonth4Cust.setCust(c);
@@ -36,6 +37,20 @@ public class PayMonth4CustController {
 		Loginer loginer = (Loginer) modelMap.get("loginer");
 
 		return payMonth4CustService.getPager(payMonth4Cust, loginer, distributorId);
+	}
+
+	/**
+	 * 获取商户的月账单（登陆者）
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/payMonth4loginer", method = RequestMethod.POST)
+	public Object payMonth4Loginer(PayMonth4Cust payMonth4Cust, ModelMap modelMap) {
+
+		Loginer loginer = (Loginer) modelMap.get("loginer");
+
+		return payMonth4CustService.getPayMonth4Loginer(payMonth4Cust, loginer);
+
 	}
 
 }

@@ -16,7 +16,7 @@
 	<div id='wrapper'>
 		<div class='application'>
 			<div class='application-content'>
-				<a><div class='icon-heart'></div> <span>支付宝分销商管理系统</span></a>
+				<a><div class='icon-heart'></div> <span>商睿商户管理平台</span></a>
 			</div>
 		</div>
 		<div class='controls'>

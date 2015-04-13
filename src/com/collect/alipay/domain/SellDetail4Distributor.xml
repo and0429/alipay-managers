@@ -6,17 +6,19 @@
 <mapper namespace="com.collect.alipay.domain.SellDetail4Distributor">
 
 	<!-- get pager -->
-	<select id="getpager" resultMap="sellDetail4Distributor">
+	<select id="getpager" resultMap="pay">
 		select *
 		from t_pay
-		left join t_loginer on p_loginer = l_username
-		left join t_cust on l_custOrDistributorId = c_id
+		left join t_cust on p_cust_id = c_id
 		<where>
 			<if test="sellDetail4Distributor.cust != null and sellDetail4Distributor.cust.name != null">
 				c_name like '%${sellDetail4Distributor.cust.name}%'
 			</if>
 			<if test="sellDetail4Distributor.payDate != null">
 				and date_format(p_pay_date, '%Y-%m') = #{sellDetail4Distributor.payDate}
+			</if>
+			<if test="1==1">
+				and p_pay_type = 0
 			</if>
 			<if test="!distributorIds.isEmpty()">
 				and c_distributor_id in
@@ -32,14 +34,16 @@
 	<select id="getCountWithCondition" resultType="integer">
 		select count(p_id)
 		from t_pay
-		left join t_loginer on p_loginer = l_username
-		left join t_cust on l_custOrDistributorId = c_id
+		left join t_cust on p_cust_id = c_id
 		<where>
 			<if test="sellDetail4Distributor.cust != null and sellDetail4Distributor.cust.name != null">
 				c_name like '%${sellDetail4Distributor.cust.name}%'
 			</if>
 			<if test="sellDetail4Distributor.payDate != null">
 				and date_format(p_pay_date, '%Y-%m') = #{sellDetail4Distributor.payDate}
+			</if>
+			<if test="1==1">
+				and p_pay_type = 0
 			</if>
 			<if test="!distributorIds.isEmpty()">
 				and c_distributor_id in
@@ -52,16 +56,19 @@
 
 
 	<!-- result map -->
-	<resultMap type="SellDetail4Distributor" id="sellDetail4Distributor">
+	<resultMap type="Pay" id="pay">
 		<id column="p_id" property="id" />
 		<result column="p_category" property="category" />
 		<result column="p_amount" property="amount" />
 		<result column="p_pay_date" property="payDate" />
-		<result column="p_pay_type" property="payWay" />
 		<result column="p_loginer" property="loginer" />
-		<association property="cust" javaType="Cust">
-			<id column="c_id" property="id" />
-			<result column="c_name" property="name" />
-		</association>
+		<result column="p_pay_type" property="payWay" />
+		<result column="p_buyer" property="buyer" />
+		<result column="p_trade_no" property="tradeNo" />
+		<result column="p_cust_id" property="custId" />
+		<result column="c_name" property="custName" />
+		<result column="p_status" property="status" />
+		<result column="p_refund_total" property="refundTotal" />
+		<result column="p_refundTime" property="refundTime" />
 	</resultMap>
 </mapper>

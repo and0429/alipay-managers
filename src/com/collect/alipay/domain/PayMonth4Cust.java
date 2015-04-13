@@ -38,6 +38,19 @@ public class PayMonth4Cust extends BaseModel {
 	 */
 	private float deduct;
 
+	/**
+	 * 提成金额
+	 */
+	private float deductMoney;
+
+	public float getDeductMoney() {
+		return deductMoney;
+	}
+
+	public void setDeductMoney(float deductMoney) {
+		this.deductMoney = deductMoney;
+	}
+
 	public float getDeduct() {
 		return deduct;
 	}
