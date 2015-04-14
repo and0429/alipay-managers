@@ -14,10 +14,23 @@
 		<property name="jobDetail" ref="saveStatistic4CustJobDetail" />
 		<property name="cronExpression" value="0 5 0 1 * ?" />
 	</bean>
+
+	<!-- 每月一号统计上月的月账单 -->
+	<bean id="saveStatistic4DistributorJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="payMonth4DistributorService" />
+		<property name="targetMethod" value="saveStatistic4Distributor" />
+		<property name="concurrent" value="false" />
+	</bean>
+	<bean id="saveStatistic4DistributorCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="saveStatistic4DistributorJobDetail" />
+		<property name="cronExpression" value="0 0 2 1 * ?" />
+	</bean>
+
 	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 		<property name="triggers">
 			<list>
 				<ref bean="saveStatistic4CustCronTrigger" />
+				<ref bean="saveStatistic4DistributorCronTrigger" />
 			</list>
 		</property>
 	</bean>

@@ -160,10 +160,10 @@ loginer.loadDataTable = function() {
 										+ ' loginId=' + data + '></div>';
 								if (loginer.role === 1) {
 									if (full.status === 0) {
-										operationHtml += '<div class="icon-trash icon-blue-color margin-smallR3 deleteBtn" title="停用" style="cursor:pointer" loginId=' + data
+										operationHtml += '<div class="icon-remove icon-blue-color margin-smallR3 deleteBtn" title="停用" style="cursor:pointer" loginId=' + data
 												+ '></div>';
 									} else {
-										operationHtml += '<div class="icon-trash icon-blue-color margin-smallR3 enabledBtn" title="启用" style="cursor:pointer" loginId=' + data
+										operationHtml += '<div class="icon-ok icon-blue-color margin-smallR3 enabledBtn" title="启用" style="cursor:pointer" loginId=' + data
 												+ '></div>';
 									}
 									operationHtml += "<div class='icon-blue-color restpassword icon-trash icon-key' title='重置密码' style='cursor:pointer' loginId='" + data

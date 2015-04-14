@@ -30,7 +30,7 @@ create table if not exists t_distributor(
 	d_haschild int
 );
 
-insert into t_distributor (d_id, d_name, d_haschild) values ('0', '总代理', 1);
+insert into t_distributor (d_id, d_name, d_haschild) values ('0', '总代理', 0);
 
 drop table if exists t_goods_category;
 create table if not exists t_goods_category(
@@ -49,8 +49,8 @@ create table if not exists t_loginer(
 	l_status int
 );
 
-insert into t_loginer(l_id, l_username, l_password, l_role, l_custOrDistributorId) 
-values ('0', 'admin', '96e79218965eb72c92a549dd5a330112', 1, '0');
+insert into t_loginer(l_id, l_username, l_password, l_role, l_custOrDistributorId, l_status) 
+values ('0', 'admin', '96e79218965eb72c92a549dd5a330112', 1, '0', 0);
 
 -- 支付详情
 drop table if exists t_pay;
@@ -79,3 +79,16 @@ create table if not exists t_pay_month_cust(
 	pmc_deduct float,
 	pmc_deduct_money float
 );
+
+-- 分销商月账单
+drop table if exists t_pay_month_distributor;
+create table if not exists t_pay_month_distributor(
+	pmd_id varchar(40) primary key,
+	pmd_month varchar(15),
+	pmd_distributor_id varchar(40),
+	pmd_total_money float,
+	pmd_deduct float,
+	pmd_deduct_money float
+);
+
+

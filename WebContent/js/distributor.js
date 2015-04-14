@@ -46,7 +46,7 @@ distributor.loadZtree = function() {
 				return true;
 			},
 			beforeRemove : function(treeId, treeNode) {
-				distributor.deleteNode(treeNode.id);
+				distributor.deleteNode(treeNode.id, treeNode.pId);
 				return false;
 			},
 			beforeEditName : function(treeId, treeNode, newName, isCancel) {
@@ -193,12 +193,12 @@ distributor.subMitForm = function() {
 /**
  * delete a distributor
  */
-distributor.deleteNode = function(id) {
+distributor.deleteNode = function(id, pId) {
 
 	if (window.confirm('您确定要删除此分销商吗？')) {
 
 		$.ajax({
-			'url' : '../distributor/delete/' + id + '.do',
+			'url' : '../distributor/delete/' + id + '/' + pId + '.do',
 			'type' : 'get',
 			'dataType' : 'json',
 			'success' : function(data) {

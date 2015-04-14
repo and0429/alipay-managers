@@ -101,7 +101,7 @@ public class PayMonth4CustServiceImpl extends BaseServiceImpl<PayMonth4Cust> imp
 			this.save(pm);
 		}
 
-		getLogger(this.clazz).info("======================= Statistic the pay of month ================");
+		getLogger(this.clazz).info("======================= Statistic the pay of month for cust================");
 	}
 
 	/*

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.collect.alipay.domain.PayMonth4Distributor">
+
+	<!-- get all cust for distributor -->
+	<select id="getPayMonth4DistributorByLastDistributorIds" resultMap="payMonth4Distributor">
+		select
+		date_format(DATE_SUB(curdate(), INTERVAL 1 DAY), '%Y-%m') as pmd_month,
+		sum(pmc_total_money) as pmd_total_money,
+		min(pmc_deduct) as pmd_deduct,
+		sum(pmc_deduct_money) as pmd_deduct_money
+
+		from t_pay_month_cust
+		left join t_cust on c_id = pmc_cust_id
+
+		<where>
+			pmc_month = date_format(DATE_SUB(curdate(), INTERVAL 1 DAY), '%Y-%m')
+			<if test="!list.isEmpty()">
+				and c_distributor_id in
+				<foreach collection="list" open="(" separator="," close=")" item="distributorId">
+					#{distributorId}
+				</foreach>
+			</if>
+		</where>
+	</select>
+
+	<!-- save an entity -->
+	<insert id="save">
+		insert into t_pay_month_distributor (pmd_id,pmd_month,pmd_total_money,pmd_deduct,pmd_deduct_money, pmd_distributor_id) values (
+		#{id},
+		#{month},
+		#{total},
+		#{deduct},
+		#{deductMoney},
+		#{distributor.id}
+		)
+	</insert>
+
+
+	<select id="getpager" resultMap="payMonth4Distributor">
+		select * from t_pay_month_distributor left join t_distributor on d_id = pmd_distributor_id
+		<where>
+			<if test="month != null">
+				pmd_month = #{month}
+			</if>
+			<if test="distributor != null and distributor.id != null">
+				pmd_distributor_id = #{distributor.id}
+			</if>
+		</where>
+		order by pmd_month desc
+		limit #{start}, #{length}
+	</select>
+	<select id="getCountWithCondition" resultType="integer">
+		select count(*) from t_pay_month_distributor left join t_distributor on d_id = pmd_distributor_id
+		<where>
+			<if test="month != null">
+				pmd_month = #{month}
+			</if>
+			<if test="distributor != null and distributor.id != null">
+				pmd_distributor_id = #{distributor.id}
+			</if>
+		</where>
+	</select>
+
+
+	<!-- result map -->
+	<resultMap type="PayMonth4Distributor" id="payMonth4Distributor">
+		<id column="pmd_id" property="id" />
+		<result column="pmd_month" property="month" />
+		<result column="pmd_total_money" property="total" />
+		<result column="pmd_deduct" property="deduct" />
+		<result column="pmd_deduct_money" property="deductMoney" />
+		<association property="distributor" javaType="Distributor">
+			<id column="pmd_distributor_id" property="id" />
+			<result column="d_name" property="name" />
+		</association>
+	</resultMap>
+
+</mapper>
