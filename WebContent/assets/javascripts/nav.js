@@ -105,12 +105,21 @@
 			dataType : "json",
 			success : function(data) {
 				if (data !== null) {
+					var role = '';
 					if (data.role !== 3) {
 						$('.cust').remove();
+						if (data.role === 2) {
+							role = '分销商';
+						}
+						if (data.role === 1) {
+							role = '总代理';
+						}
 					} else {
 						$('.distributor').remove();
+						role = '商户';
 					}
-					$('.user-name').html(data.username);
+
+					$('.user-name').html(data.username + "（" + role + "）");
 					$('.nav').show();
 				}
 			}
