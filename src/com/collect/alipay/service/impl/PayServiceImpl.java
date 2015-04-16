@@ -49,6 +49,7 @@ public class PayServiceImpl extends BaseServiceImpl<Pay> implements PayService {
 		pay.setLoginer(loginer.getUsername());
 		pay.setPayDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 		pay.setCustId(loginer.getCustOrDistributorId());
+		pay.setStatus("WAIT_BUYER_PAY");
 
 		this.save(pay);
 

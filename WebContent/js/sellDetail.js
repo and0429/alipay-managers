@@ -109,6 +109,9 @@ SellDetail.prototype.loadDataTable = function() {
 					case 'REFUND_SUCCESS':
 						return '退款成功';
 						break;
+					case 'WAIT_BUYER_PAY':
+						return '等待付款';
+						break;
 					}
 				}
 				return '';
