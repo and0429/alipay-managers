@@ -47,6 +47,7 @@ loginer.loadZtree = function() {
 				return true;
 			},
 			onClick : function(event, treeId, treeNode) {
+
 				loginer.custOrDistributorId = treeNode.id;
 				loginer.distributorHasChild = treeNode.hasChild
 				loginer.DataTable.draw();
@@ -55,6 +56,7 @@ loginer.loadZtree = function() {
 				} else {
 					$('#addbtn').attr('disabled', 'disabled');
 				}
+
 			}
 		}
 	};
@@ -154,7 +156,6 @@ loginer.loadDataTable = function() {
 						{
 							"targets" : 4,
 							"render" : function(data, type, full, meta) {
-								console.log(loginer.role);
 								var operationHtml = "<div id='operation' style='display: none;'>";
 								operationHtml += '<div class="icon-edit icon-blue-color updateBtn  margin-smallR3" title="修改" style="cursor:pointer" username=' + full.username
 										+ ' loginId=' + data + '></div>';
@@ -244,6 +245,15 @@ loginer.clickAddBtn = function() {
 				$('#distributor').html(
 						util.getLoginerSelect('loginSelect', 'custOrDistributorId', 'myselect', (loginer.custOrDistributorId ? loginer.custOrDistributorId : 0),
 								loginer.distributorHasChild));
+
+				if (loginer.distributorHasChild === 1) {
+					$('#role').html("<option value='2' selected='selected'>分销商</option>");
+				}
+
+				if (loginer.distributorHasChild === 0) {
+					$('#role').html("<option value='3' selected='selected'>商户</option>");
+				}
+
 				$('#myModal').modal({
 					'backdrop' : 'static',
 					'show' : true

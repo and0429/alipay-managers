@@ -131,8 +131,8 @@ payOnlie.total = function(api) {
 payOnlie.addButton = function() {
 
 	var toolbarHtml = "";
-	toolbarHtml += "<button class='btn btn-warning' id='alipay' style='margin-bottom: 10px;'>支付宝支付</button>";
-	toolbarHtml += "<button class='btn btn-warning' id='moneyAlipay' style='margin-bottom: 10px; margin-left: 10px'>现金支付</button>";
+	toolbarHtml += "<button class='btn btn-warning btn-large' id='alipay' style='margin-bottom: 10px;'>支付宝支付</button>";
+	toolbarHtml += "<button class='btn btn-success btn-large' id='moneyAlipay' style='margin-bottom: 10px; margin-left: 10px'>现金支付</button>";
 	$('.toolbar').html(toolbarHtml);
 
 	var totalHtml = "";

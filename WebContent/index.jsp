@@ -16,39 +16,51 @@
 <link href='assets/stylesheets/bootstrap/bootstrap.css' media='all' rel='stylesheet' type='text/css' />
 <link href='assets/stylesheets/light-theme.css' id='color-settings-body-color' media='all' rel='stylesheet' type='text/css' />
 <style type="text/css">
+body {
+	background: #428ED9;
+}
+
 .login {
-	height: 100%;
-	width: 100%;
+	height: 698px;
+	width: 1348px;
 	background-image: url(assets/images/login/background.jpg);
+	margin: 0px auto;
+	margin-top: 20px;
 }
 
 input[type="image"] {
-	margin-left: 657px;
-	margin-top: 11px;
+	position: absolute;
+	margin-top: 396px;
+	margin-left: 653px;
 }
 
 .loginMessage {
-	margin-left: 660px;
-	margin-top: -125px;
 	color: red;
+	width: 200px;
+	position: relative;
+	margin-top: 300px;
+	margin-left: 634px;
+	position: absolute;
 }
 
 input#password {
-	background-color: transparent;
-	border: 0px;
-	width: 154px;
-	height: 13px;
-	margin-top: -1px;
+	position: absolute;
 	margin-left: 636px;
+	margin-top: 358px;
+	width: 155px;
+	height: 13px;
+	border: none;
+	background: inherit;
 }
 
 input#username {
-	background-color: transparent;
-	border: 0px;
-	width: 154px;
-	height: 13px;
-	margin-top: 328px;
+	position: absolute;
 	margin-left: 636px;
+	margin-top: 329px;
+	width: 155px;
+	height: 13px;
+	border: none;
+	background: inherit;
 }
 </style>
 </head>
