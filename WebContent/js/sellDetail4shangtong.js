@@ -55,12 +55,19 @@ SellDetail4shangtong.prototype = {
 			"columnDefs" : [ {
 				"targets" : [ 0, 3 ],
 				"render" : function(data, type, full, meta) {
-					return data.toFixed(2);
+					if (data !== undefined) {
+						return data;
+					}
+					return '';
 				}
 			}, {
 				"targets" : 1,
 				"render" : function(data, type, full, meta) {
-					return data.split('.')[0];
+					if (data) {
+						return data.split('.')[0];
+					}
+					return '';
+
 				}
 			} ],
 

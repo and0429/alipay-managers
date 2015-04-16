@@ -64,7 +64,7 @@
 	<!-- notifyUrl -->
 	<bean id="notifyUrl" class="java.lang.String">
 		<constructor-arg>
-			<value>http://123.57.68.107:8080/alipay-manager/pay/alipayNotify.do</value>
+			<value>http://123.57.68.107/alipay-manager/pay/alipayNotify.do</value>
 		</constructor-arg>
 	</bean>
 
