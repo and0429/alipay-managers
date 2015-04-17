@@ -131,7 +131,8 @@ payOnlie.total = function(api) {
 payOnlie.addButton = function() {
 
 	var toolbarHtml = "";
-	toolbarHtml += "<button class='btn btn-warning btn-large' id='alipay' style='margin-bottom: 10px;'>支付宝支付</button>";
+	toolbarHtml += "<button class='btn btn-primary btn-large' id='scnneralipay' style='margin-bottom: 10px;'>扫码支付</button>";
+	toolbarHtml += "<button class='btn btn-warning btn-large' id='alipay' style='margin-bottom: 10px; margin-left: 10px'>支付宝支付</button>";
 	toolbarHtml += "<button class='btn btn-success btn-large' id='moneyAlipay' style='margin-bottom: 10px; margin-left: 10px'>现金支付</button>";
 	$('.toolbar').html(toolbarHtml);
 
@@ -152,6 +153,7 @@ payOnlie.alipay = function() {
 			return;
 		}
 
+		$('#total4paypage').html($('#totalValue').html());
 		$('#successMessage').html('<img style="padding-left: 130px;" id="QRCode" />');
 		$('#QRCode').attr('src', '');
 
