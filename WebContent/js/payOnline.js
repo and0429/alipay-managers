@@ -156,8 +156,6 @@ payOnlie.alipay = function() {
 		}
 
 		$('#total4paypage').html($('#totalValue').html());
-		$('#successMessage').html('<img style="padding-left: 130px;" id="QRCode" />');
-		$('#QRCode').attr('src', '');
 
 		$.ajax({
 			url : '../pay/prepay.do',
@@ -167,15 +165,21 @@ payOnlie.alipay = function() {
 				'payWay' : 0,
 			},
 			success : function(data) {
-				$('#QRCode').attr('src', data.smallPicUrl);
-				$('#QRCodeModal').modal({
-					'backdrop' : 'static',
-					'show' : true
-				});
 
-				payOnlie.outTradeNo = data.outTradeNo;
+				if (data !== undefined && data.resultCode === 'SUCCESS') {
+					$('#successMessage').html('<img style="padding-left: 130px;" id="QRCode" />');
+					$('#QRCode').attr('src', data.smallPicUrl);
+					$('#QRCodeModal').modal({
+						'backdrop' : 'static',
+						'show' : true
+					});
 
-				payOnlie.timeId = setInterval('payOnlie.getPayStatus()', 1000);
+					payOnlie.outTradeNo = data.outTradeNo;
+
+					payOnlie.timeId = setInterval('payOnlie.getPayStatus()', 1000);
+				} else {
+					$('#successMessage').html("<span style='padding-left: 180px;'>获取二维码错误，请重试！</span>");
+				}
 			}
 		});
 	});
@@ -191,6 +195,11 @@ payOnlie.modalMethod = function() {
 	$('#QRCodeModal').on('shown.bs.modal', function(e) {
 		$('#scannerNumber').focus();
 		$('#affirmPay').on('click', function() {
+
+			if ($('#scannerNumber').val() === '') {
+				return;
+			}
+
 			$.ajax({
 				url : '../pay/prepay.do',
 				type : "POST",
@@ -201,11 +210,13 @@ payOnlie.modalMethod = function() {
 				},
 				success : function(data) {
 
-					console.log(data);
-
-					payOnlie.outTradeNo = data.outTradeNo;
-					$('#successMessage').html("<span style='padding-left: 180px;'>正在支付，请稍等。。。</span>");
-					payOnlie.timeId = setInterval('payOnlie.getPayStatus()', 1000);
+					if (data !== undefined && data.resultCode === 'ORDER_SUCCESS_PAY_INPROCESS') {
+						payOnlie.outTradeNo = data.outTradeNo;
+						$('#successMessage').html("<span style='padding-left: 180px;'>正在支付，请稍等。。。</span>");
+						payOnlie.timeId = setInterval('payOnlie.getPayStatus()', 1000);
+					} else {
+						$('#successMessage').html("<span style='padding-left: 180px;'>支付错误，请重试！</span>");
+					}
 				}
 			});
 		});
