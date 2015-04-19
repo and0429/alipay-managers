@@ -154,7 +154,7 @@ distributor.clickSavebtn = function() {
 distributor.subMitForm = function() {
 	$('#distributorForm').ajaxSubmit({
 		'dataType' : 'json',
-		'resetForm' : true,
+//		'resetForm' : true,
 		'beforeSubmit' : function(array) {
 
 			if (array[0].value === '') {
@@ -185,6 +185,8 @@ distributor.subMitForm = function() {
 			if (data.code != 0) {
 				$('#myModal').modal('hide');
 				distributor.loadZtree();
+			} else {
+				$('#inputError').html(data.msg);
 			}
 		},
 	});

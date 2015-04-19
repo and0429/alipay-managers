@@ -79,7 +79,7 @@ public class PayServiceImpl extends BaseServiceImpl<Pay> implements PayService {
 
 			cr.setDynamicId(pay.getCode());
 			cr.setDynamicIdType("bar_code");
-			cr.setProductCode("TB_BARCODE_OFFLINE");
+			cr.setProductCode("BARCODE_PAY_OFFLINE");
 			cr.setRemark("102");
 			cr.setSubject("102");
 			cr.setTotal(pay.getAmount().floatValue() + "");

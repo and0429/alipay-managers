@@ -29,6 +29,16 @@ public class Cust extends BaseModel {
 	 * 负责人
 	 */
 	private String manager;
+
+	/**
+	 * 支付宝用户名
+	 */
+	private String alipayusername;
+
+	/**
+	 * 支付宝密码
+	 */
+	private String alipaypassword;
 	/**
 	 * 电话
 	 */
@@ -97,6 +107,22 @@ public class Cust extends BaseModel {
 
 	public void setTel(String tel) {
 		this.tel = tel;
+	}
+
+	public String getAlipayusername() {
+		return alipayusername;
+	}
+
+	public void setAlipayusername(String alipayusername) {
+		this.alipayusername = alipayusername;
+	}
+
+	public String getAlipaypassword() {
+		return alipaypassword;
+	}
+
+	public void setAlipaypassword(String alipaypassword) {
+		this.alipaypassword = alipaypassword;
 	}
 
 }

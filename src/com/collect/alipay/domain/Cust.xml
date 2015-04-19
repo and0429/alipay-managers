@@ -7,8 +7,24 @@
 
 	<!-- add a entity -->
 	<insert id="save" parameterType="Cust">
-		insert into t_cust (c_id, c_name, c_addr, c_manager, c_tel, c_distributor_id) values
-		(#{id}, #{name}, #{addr, jdbcType=VARCHAR}, #{manager, jdbcType=VARCHAR}, #{tel, jdbcType=VARCHAR}, #{distributor.id, jdbcType=VARCHAR}
+		insert into t_cust (
+		c_id,
+		c_name,
+		c_addr,
+		c_manager,
+		c_tel,
+		c_distributor_id,
+		c_alipay_username,
+		c_alipay_password
+		)values(
+		#{id},
+		#{name},
+		#{addr, jdbcType=VARCHAR},
+		#{manager, jdbcType=VARCHAR},
+		#{tel, jdbcType=VARCHAR},
+		#{distributor.id, jdbcType=VARCHAR},
+		#{alipayusername, jdbcType=VARCHAR},
+		#{alipaypassword, jdbcType=VARCHAR}
 		)
 	</insert>
 
@@ -36,7 +52,13 @@
 				c_tel = #{tel},
 			</if>
 			<if test="addr != null">
-				c_addr = #{addr}
+				c_addr = #{addr},
+			</if>
+			<if test="alipayusername != null">
+				c_alipay_username = #{alipayusername},
+			</if>
+			<if test="alipaypassword != null">
+				c_alipay_password = #{alipaypassword}
 			</if>
 		</set>
 		where c_id = #{id}
@@ -104,6 +126,8 @@
 		<id column="c_id" property="id" />
 		<result column="c_name" property="name" />
 		<result column="c_manager" property="manager" />
+		<result column="c_alipay_username" property="alipayusername" />
+		<result column="c_alipay_password" property="alipaypassword" />
 		<result column="c_tel" property="tel" />
 		<result column="c_addr" property="addr" />
 		<result column="c_distributor_id" property="pId" />

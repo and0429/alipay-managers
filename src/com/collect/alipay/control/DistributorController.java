@@ -107,6 +107,12 @@ public class DistributorController {
 	 */
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public Object add(Distributor distributor) {
+
+		List<Cust> custs = custService.getByDistributorId(distributor.getpId());
+		if (custs.size() > 0) {
+			return new Status(0, "该分销商下有商户，不能添加分销商！");
+		}
+
 		int result = distributorService.saveAndUpdateParentStatus(distributor);
 		return new Status(result);
 	}

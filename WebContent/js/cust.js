@@ -166,11 +166,21 @@ cust.submitForm = function() {
 				return false;
 			}
 			if (arr[2].value === '') {
+				$('#alipayusername')[0].focus();
+				$('#inputError').html('请填写支付宝用户名');
+				return false;
+			}
+			if (arr[3].value === '') {
+				$('#alipaypassword')[0].focus();
+				$('#inputError').html('请填写支付宝密码');
+				return false;
+			}
+			if (arr[4].value === '') {
 				$('#tel')[0].focus();
 				$('#inputError').html('请填写联系电话');
 				return false;
 			}
-			if (arr[3].value === '') {
+			if (arr[5].value === '') {
 				$('#addr')[0].focus();
 				$('#inputError').html('请填写联系地址');
 				return false;
@@ -208,10 +218,17 @@ cust.clickEdit = function() {
 		$.ajax({
 			'url' : '../cust/getById/' + id + '.do',
 			'success' : function(data) {
+				
+				console.log(data);
+				
 				if (data) {
 					$('#distributorSelect').val((data.distributor.id) ? data.distributor.id : '-1');
 					$('#distributorSelect').attr('disabled', 'disabled');
 					$('#name').val(data.name);
+
+					$('#alipayusername').val(data.alipayusername);
+					$('#alipaypassword').val(data.alipaypassword);
+
 					$('#id').val(id);
 					$('#tel').val(data.tel);
 					$('#manager').val(data.manager);

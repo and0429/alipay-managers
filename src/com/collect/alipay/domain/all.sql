@@ -7,7 +7,9 @@ create table if not exists t_cust(
 	c_addr varchar(50),
 	c_manager varchar(5),
 	c_tel varchar(20),
-	c_distributor_id varchar(40)
+	c_distributor_id varchar(40),
+	c_alipay_username varchar(50),
+	c_alipay_password varchar(50)
 );
 
 
