@@ -12,6 +12,7 @@ payOnlie.main = function() {
 	payOnlie.amountOnFocus();
 	payOnlie.loadDataTables();
 	payOnlie.save2Table();
+	payOnlie.modalMethod();
 }
 
 /**
@@ -62,6 +63,7 @@ payOnlie.loadDataTables = function() {
 			payOnlie.addButton();
 			payOnlie.alipay();
 			payOnlie.moneyAlipay();
+			payOnlie.scnneralipay();
 			payOnlie.deleteRow();
 		}
 	});
@@ -148,7 +150,7 @@ payOnlie.alipay = function() {
 
 	$('#alipay').on('click', function() {
 
-		if ($('#totalValue').html() == '0.00') {
+		if ($('#totalValue').html() == '0.00' || $('#totalValue').html() == '0.0' || $('#totalValue').html() == '0') {
 			alert('请先添加商品！');
 			return;
 		}
@@ -180,13 +182,71 @@ payOnlie.alipay = function() {
 };
 
 /**
+ * 模态框的函数
+ */
+payOnlie.modalMethod = function() {
+	$('#QRCodeModal').on('hidden.bs.modal', function(e) {
+		window.clearInterval(payOnlie.timeId);
+	})
+	$('#QRCodeModal').on('shown.bs.modal', function(e) {
+		$('#scannerNumber').focus();
+		$('#affirmPay').on('click', function() {
+			$.ajax({
+				url : '../pay/prepay.do',
+				type : "POST",
+				data : {
+					'amount' : $('#totalValue').html(),
+					'code' : $('#scannerNumber').val(),
+					'payWay' : 2,
+				},
+				success : function(data) {
+
+					console.log(data);
+
+					payOnlie.outTradeNo = data.outTradeNo;
+					$('#successMessage').html("<span style='padding-left: 180px;'>正在支付，请稍等。。。</span>");
+					payOnlie.timeId = setInterval('payOnlie.getPayStatus()', 1000);
+				}
+			});
+		});
+	})
+
+}
+
+/**
+ * 扫码支付
+ */
+payOnlie.scnneralipay = function() {
+
+	$('#scnneralipay').on('click', function() {
+
+		if ($('#totalValue').html() == '0.00' || $('#totalValue').html() == '0.0' || $('#totalValue').html() == '0') {
+			alert('请先添加商品！');
+			return;
+		}
+
+		$('#total4paypage').html($('#totalValue').html());
+
+		var successMessageHtml = '<span style="font-size: 25px; margin-right: 37px;">请扫码: </span><input type="text" autofocus="autofocus" name="number" id="scannerNumber"/>';
+		successMessageHtml += "<button class='btn btn-primary' id='affirmPay' style='margin-bottom: 10px; margin-left: 30px;'>支付</button>";
+
+		$('#successMessage').html(successMessageHtml);
+
+		$('#QRCodeModal').modal({
+			'backdrop' : 'static',
+			'show' : true
+		});
+	});
+}
+
+/**
  * 现金支付
  */
 payOnlie.moneyAlipay = function() {
 
 	$('#moneyAlipay').on('click', function() {
 
-		if ($('#totalValue').html() == '0.00') {
+		if ($('#totalValue').html() == '0.00' || $('#totalValue').html() == '0.0' || $('#totalValue').html() == '0') {
 			alert('请先添加商品！');
 			return;
 		}

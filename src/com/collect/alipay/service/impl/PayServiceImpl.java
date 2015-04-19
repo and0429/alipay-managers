@@ -12,6 +12,7 @@ import com.collect.alipay.domain.Pay;
 import com.collect.alipay.service.PayService;
 import com.collect.alipay.util.UUIDUtil;
 import com.collect.alipay.wsclient.AlipayPayService;
+import com.collect.alipay.wsclient.CreateandpayRequest;
 import com.collect.alipay.wsclient.PrecreateRequest;
 import com.collect.alipay.wsclient.RefundRequest;
 import com.collect.alipay.wsclient.RefundResponse;
@@ -72,6 +73,21 @@ public class PayServiceImpl extends BaseServiceImpl<Pay> implements PayService {
 			pay2.setStatus("TRADE_SUCCESS");
 			int result = this.update(pay2);
 			return new Status(result);
+
+		case 2:
+			CreateandpayRequest cr = new CreateandpayRequest();
+
+			cr.setDynamicId(pay.getCode());
+			cr.setDynamicIdType("bar_code");
+			cr.setProductCode("TB_BARCODE_OFFLINE");
+			cr.setRemark("102");
+			cr.setSubject("102");
+			cr.setTotal(pay.getAmount().floatValue() + "");
+			cr.setTradeNo(tradeNo);
+			cr.setUser(loginer == null ? "" : loginer.getUsername());
+
+			return alipayService.alipayCreateandPay(cr);
+
 		}
 
 		return new Status();

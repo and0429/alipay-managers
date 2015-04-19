@@ -82,6 +82,11 @@ public class Pay extends BaseModel {
 	 */
 	private String refundTime;
 
+	/**
+	 * 条目或者二维码的值
+	 */
+	private String code;
+
 	public Float getAmount() {
 		return amount;
 	}
@@ -184,6 +189,14 @@ public class Pay extends BaseModel {
 
 	public void setTradeNo(String tradeNo) {
 		this.tradeNo = tradeNo;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 }

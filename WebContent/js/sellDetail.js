@@ -64,7 +64,7 @@ SellDetail.prototype.loadDataTable = function() {
 			"targets" : 8,
 			"render" : function(data, type, full, meta) {
 
-				if (full.status === 'TRADE_SUCCESS' && full.payWay === 0) {
+				if ((full.status === 'TRADE_SUCCESS' && full.payWay === 0) || (full.status === 'TRADE_SUCCESS' && full.payWay === 2)) {
 					var operationHtml = "<div id='operation' style='display: none;'>"
 					operationHtml += '<div class="refund" style="cursor:pointer" amount=' + full.amount + ' payId=' + data + '>退款</div>';
 					operationHtml += '</div>'
@@ -79,7 +79,9 @@ SellDetail.prototype.loadDataTable = function() {
 				case 0:
 					return '支付宝';
 					break;
-
+				case 2:
+					return '扫码支付';
+					break;
 				case 1:
 					return '现金';
 					break;
