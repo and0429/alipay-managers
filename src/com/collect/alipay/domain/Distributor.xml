@@ -7,9 +7,9 @@
 
 	<!-- save a entity -->
 	<insert id="save" parameterType="Distributor">
-		insert into t_distributor(d_id, d_name, d_addr, d_manager, d_tel, d_parent_id, d_haschild)
+		insert into t_distributor(d_id, d_name, d_addr, d_manager, d_tel, d_parent_id, d_haschild, d_deduct)
 		values (#{id}, #{name}, #{addr, jdbcType=VARCHAR}, #{manager, jdbcType=VARCHAR},
-		#{tel, jdbcType=VARCHAR}, #{pId, jdbcType=VARCHAR}, 0)
+		#{tel, jdbcType=VARCHAR}, #{pId, jdbcType=VARCHAR}, 0, #{deduct, jdbcType=VARCHAR})
 	</insert>
 
 	<!-- delete a entity -->
@@ -51,6 +51,9 @@
 			<if test="hasChild != null">
 				d_haschild = #{hasChild}
 			</if>
+			<if test="deduct != null">
+				d_deduct = #{deduct}
+			</if>
 		</set>
 		where d_id = #{id}
 	</update>
@@ -86,6 +89,7 @@
 		<result column="c_d_tel" property="tel" />
 		<result column="c_d_parent_id" property="pId" />
 		<result column="c_d_haschild" property="hasChild" />
+		<result column="c_d_deduct" property="deduct" />
 		<association property="pPistributor" javaType="Distributor">
 			<id column="p_d_id" property="id" />
 			<result column="p_d_name" property="name" />
@@ -94,6 +98,7 @@
 			<result column="p_d_tel" property="tel" />
 			<result column="p_d_parent_id" property="pId" />
 			<result column="p_d_haschild" property="hasChild" />
+			<result column="p_d_deduct" property="deduct" />
 		</association>
 	</resultMap>
 
@@ -108,6 +113,7 @@
 		c_d_tel,
 		c.d_parent_id as c_d_parent_id,
 		c.d_haschild as c_d_haschild,
+		c.d_deduct as c_d_deduct,
 
 		p.d_id as p_d_id,
 		p.d_name as p_d_name,
@@ -116,7 +122,8 @@
 		p.d_tel as p_d_tel,
 		p.d_parent_id as
 		p_d_parent_id,
-		p.d_haschild as p_d_haschild
+		p.d_haschild as p_d_haschild,
+		p.d_deduct as p_d_deduct
 	</sql>
 
 </mapper>

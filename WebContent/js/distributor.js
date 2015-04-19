@@ -2,6 +2,9 @@ var distributor = new Object();
 
 distributor.zTreeObj = undefined;
 
+distributor.deductDivHtml = "<label class='control-label'>分成率（小数）</label>"
+		+ "<div class='controls'><input class='span3' type='text' id='deduct' name='deduct' maxlength='4' required='required' /></div>";
+
 /**
  * main
  */
@@ -50,7 +53,7 @@ distributor.loadZtree = function() {
 				return false;
 			},
 			beforeEditName : function(treeId, treeNode, newName, isCancel) {
-				distributor.updateNode(treeNode.id);
+				distributor.updateNode(treeNode);
 				return false;
 			},
 
@@ -96,6 +99,7 @@ distributor.addHoverDom = function(treeId, treeNode) {
 			$('#inputError').empty();
 			$('#parentDis').val(treeNode.name);
 			$('#pid').val(treeNode.id);
+			$('#deductDiv').html(distributor.deductDivHtml);
 
 			$('#myModal').modal({
 				'backdrop' : 'static',
@@ -154,7 +158,7 @@ distributor.clickSavebtn = function() {
 distributor.subMitForm = function() {
 	$('#distributorForm').ajaxSubmit({
 		'dataType' : 'json',
-//		'resetForm' : true,
+		// 'resetForm' : true,
 		'beforeSubmit' : function(array) {
 
 			if (array[0].value === '') {
@@ -175,6 +179,15 @@ distributor.subMitForm = function() {
 			if (array[3].value === '') {
 				$('#addr')[0].focus();
 				$('#inputError').html('联系地址不能为空');
+				return false;
+			}
+			if (array[4].value === '') {
+				$('#deduct')[0].focus();
+				$('#inputError').html('联系地址不能为空');
+				return false;
+			} else if (!(/^0.0[0-9]$/.test(array[4].value))) {
+				$('#deduct')[0].focus();
+				$('#inputError').html('分成率格式必须为两位的小数');
 				return false;
 			}
 
@@ -217,7 +230,9 @@ distributor.deleteNode = function(id, pId) {
 /**
  * show update tableb before update a distributor
  */
-distributor.updateNode = function(id) {
+distributor.updateNode = function(treeNode) {
+
+	var id = treeNode.id;
 
 	$('#myModalLabel').html('修改分销商');
 	$('#distributorForm').attr('action', '../distributor/update.do');
@@ -240,12 +255,18 @@ distributor.updateNode = function(id) {
 			$('#tel').val(data.tel);
 			$('#addr').val(data.addr);
 			$('#id').val(data.id);
+			
+			if (!treeNode.pId) {
+				$('#deductDiv').empty();
+			} else {
+				$('#deductDiv').html(distributor.deductDivHtml);
+				$('#deduct').val(data.deduct);
+			}
 
 			$('#myModal').modal({
 				'backdrop' : 'static',
 				'show' : true,
 			});
-
 		}
 	});
 }
@@ -265,6 +286,7 @@ distributor.addInfo = function(treeNode) {
 		$('#managerinfo').html(treeNode.manager);
 		$('#telinfo').html(treeNode.tel);
 		$('#addrinfo').html(treeNode.addr);
+		$('#deductinfo').html(treeNode.deduct);
 	}
 };
 

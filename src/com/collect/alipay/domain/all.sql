@@ -29,7 +29,8 @@ create table if not exists t_distributor(
 	d_manager varchar(5),
 	d_tel varchar(20),
 	d_parent_id varchar(40),
-	d_haschild int
+	d_haschild int,
+	d_deduct float
 );
 
 insert into t_distributor (d_id, d_name, d_haschild) values ('0', '总代理', 0);

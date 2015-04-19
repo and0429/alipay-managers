@@ -54,81 +54,94 @@ public class Distributor extends BaseModel {
 	 */
 	private Integer hasChild;
 
-	public Integer getHasChild() {
-		return hasChild;
-	}
-
-	public void setHasChild(Integer hasChild) {
-		this.hasChild = hasChild;
-	}
+	/**
+	 * 分成率
+	 */
+	private Float deduct;
 
 	/**
 	 * 是否默认为打开
 	 */
 	private boolean open = true;
 
-	public boolean getOpen() {
-		return open;
+	public String getAddr() {
+		return addr;
 	}
 
-	public void setOpen(boolean open) {
-		this.open = open;
+	public Float getDeduct() {
+		return deduct;
+	}
+
+	public Integer getHasChild() {
+		return hasChild;
 	}
 
 	public String getId() {
 		return id;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public String getManager() {
+		return manager;
 	}
 
 	public String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getAddr() {
-		return addr;
-	}
-
-	public void setAddr(String addr) {
-		this.addr = addr;
-	}
-
-	public String getManager() {
-		return manager;
-	}
-
-	public void setManager(String manager) {
-		this.manager = manager;
-	}
-
-	public String getTel() {
-		return tel;
-	}
-
-	public void setTel(String tel) {
-		this.tel = tel;
-	}
-
-	public Distributor getpPistributor() {
-		return pPistributor;
-	}
-
-	public void setpPistributor(Distributor pPistributor) {
-		this.pPistributor = pPistributor;
+	public boolean getOpen() {
+		return open;
 	}
 
 	public String getpId() {
 		return pId;
 	}
 
+	public Distributor getpPistributor() {
+		return pPistributor;
+	}
+
+	public String getTel() {
+		return tel;
+	}
+
+	public void setAddr(String addr) {
+		this.addr = addr;
+	}
+
+	public void setDeduct(Float deduct) {
+		this.deduct = deduct;
+	}
+
+	public void setHasChild(Integer hasChild) {
+		this.hasChild = hasChild;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public void setManager(String manager) {
+		this.manager = manager;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setOpen(boolean open) {
+		this.open = open;
+	}
+
 	public void setpId(String pId) {
 		this.pId = pId;
+	}
+
+	public void setpPistributor(Distributor pPistributor) {
+		this.pPistributor = pPistributor;
+	}
+
+	public void setTel(String tel) {
+		this.tel = tel;
 	}
 
 }
