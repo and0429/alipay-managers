@@ -98,7 +98,7 @@ SellDetail.prototype.loadDataTable = function() {
 		}, {
 			"targets" : 0,
 			"render" : function(data, type, full, meta) {
-				return '订单号';
+				return data;
 			}
 		}, {
 			"targets" : 4,

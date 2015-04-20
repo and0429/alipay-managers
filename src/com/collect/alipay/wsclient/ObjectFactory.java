@@ -32,8 +32,8 @@ public class ObjectFactory {
     private final static QName _AlipayQueryResponse_QNAME = new QName("http://service.alipay.com/", "alipayQueryResponse");
     private final static QName _AlipayCancelResponse_QNAME = new QName("http://service.alipay.com/", "alipayCancelResponse");
     private final static QName _AlipayCreateandPay_QNAME = new QName("http://service.alipay.com/", "alipayCreateandPay");
-    private final static QName _AlipayPrecreatePicArray_QNAME = new QName("http://service.alipay.com/", "alipayPrecreatePicArray");
     private final static QName _AlipayClose_QNAME = new QName("http://service.alipay.com/", "alipayClose");
+    private final static QName _AlipayPrecreatePicArray_QNAME = new QName("http://service.alipay.com/", "alipayPrecreatePicArray");
     private final static QName _AlipayCancel_QNAME = new QName("http://service.alipay.com/", "alipayCancel");
     private final static QName _AlipayCreateandPayResponse_QNAME = new QName("http://service.alipay.com/", "alipayCreateandPayResponse");
     private final static QName _AlipayPrecreatePicArrayResponse_QNAME = new QName("http://service.alipay.com/", "alipayPrecreatePicArrayResponse");
@@ -49,147 +49,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link AlipayRefundResponse }
-     * 
-     */
-    public AlipayRefundResponse createAlipayRefundResponse() {
-        return new AlipayRefundResponse();
-    }
-
-    /**
-     * Create an instance of {@link AlipayCancel }
-     * 
-     */
-    public AlipayCancel createAlipayCancel() {
-        return new AlipayCancel();
-    }
-
-    /**
-     * Create an instance of {@link AlipayCloseResponse }
-     * 
-     */
-    public AlipayCloseResponse createAlipayCloseResponse() {
-        return new AlipayCloseResponse();
-    }
-
-    /**
-     * Create an instance of {@link AlipayQuery }
-     * 
-     */
-    public AlipayQuery createAlipayQuery() {
-        return new AlipayQuery();
-    }
-
-    /**
-     * Create an instance of {@link QueryResponse }
-     * 
-     */
-    public QueryResponse createQueryResponse() {
-        return new QueryResponse();
-    }
-
-    /**
-     * Create an instance of {@link CancelResponse }
-     * 
-     */
-    public CancelResponse createCancelResponse() {
-        return new CancelResponse();
-    }
-
-    /**
-     * Create an instance of {@link AlipayClose }
-     * 
-     */
-    public AlipayClose createAlipayClose() {
-        return new AlipayClose();
-    }
-
-    /**
-     * Create an instance of {@link CloseResponse }
-     * 
-     */
-    public CloseResponse createCloseResponse() {
-        return new CloseResponse();
-    }
-
-    /**
-     * Create an instance of {@link AlipayCreateandPayResponse }
-     * 
-     */
-    public AlipayCreateandPayResponse createAlipayCreateandPayResponse() {
-        return new AlipayCreateandPayResponse();
-    }
-
-    /**
-     * Create an instance of {@link CreateandpayRequest }
-     * 
-     */
-    public CreateandpayRequest createCreateandpayRequest() {
-        return new CreateandpayRequest();
-    }
-
-    /**
-     * Create an instance of {@link AlipayRefund }
-     * 
-     */
-    public AlipayRefund createAlipayRefund() {
-        return new AlipayRefund();
-    }
-
-    /**
-     * Create an instance of {@link AlipayPrecreate }
-     * 
-     */
-    public AlipayPrecreate createAlipayPrecreate() {
-        return new AlipayPrecreate();
-    }
-
-    /**
      * Create an instance of {@link CloseRequest }
      * 
      */
     public CloseRequest createCloseRequest() {
         return new CloseRequest();
-    }
-
-    /**
-     * Create an instance of {@link AlipayPrecreatePicArray }
-     * 
-     */
-    public AlipayPrecreatePicArray createAlipayPrecreatePicArray() {
-        return new AlipayPrecreatePicArray();
-    }
-
-    /**
-     * Create an instance of {@link CancelRequest }
-     * 
-     */
-    public CancelRequest createCancelRequest() {
-        return new CancelRequest();
-    }
-
-    /**
-     * Create an instance of {@link PrecreateResponse }
-     * 
-     */
-    public PrecreateResponse createPrecreateResponse() {
-        return new PrecreateResponse();
-    }
-
-    /**
-     * Create an instance of {@link CreateandpayResponse }
-     * 
-     */
-    public CreateandpayResponse createCreateandpayResponse() {
-        return new CreateandpayResponse();
-    }
-
-    /**
-     * Create an instance of {@link AlipayQueryResponse }
-     * 
-     */
-    public AlipayQueryResponse createAlipayQueryResponse() {
-        return new AlipayQueryResponse();
     }
 
     /**
@@ -201,35 +65,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link AlipayPrecreatePic }
+     * Create an instance of {@link AlipayCancelResponse }
      * 
      */
-    public AlipayPrecreatePic createAlipayPrecreatePic() {
-        return new AlipayPrecreatePic();
+    public AlipayCancelResponse createAlipayCancelResponse() {
+        return new AlipayCancelResponse();
     }
 
     /**
-     * Create an instance of {@link RefundRequest }
+     * Create an instance of {@link CancelResponse }
      * 
      */
-    public RefundRequest createRefundRequest() {
-        return new RefundRequest();
-    }
-
-    /**
-     * Create an instance of {@link AlipayCreateandPay }
-     * 
-     */
-    public AlipayCreateandPay createAlipayCreateandPay() {
-        return new AlipayCreateandPay();
-    }
-
-    /**
-     * Create an instance of {@link PrecreateRequest }
-     * 
-     */
-    public PrecreateRequest createPrecreateRequest() {
-        return new PrecreateRequest();
+    public CancelResponse createCancelResponse() {
+        return new CancelResponse();
     }
 
     /**
@@ -241,11 +89,67 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link RefundResponse }
+     * Create an instance of {@link AlipayClose }
      * 
      */
-    public RefundResponse createRefundResponse() {
-        return new RefundResponse();
+    public AlipayClose createAlipayClose() {
+        return new AlipayClose();
+    }
+
+    /**
+     * Create an instance of {@link RefundRequest }
+     * 
+     */
+    public RefundRequest createRefundRequest() {
+        return new RefundRequest();
+    }
+
+    /**
+     * Create an instance of {@link AlipayCloseResponse }
+     * 
+     */
+    public AlipayCloseResponse createAlipayCloseResponse() {
+        return new AlipayCloseResponse();
+    }
+
+    /**
+     * Create an instance of {@link AlipayQueryResponse }
+     * 
+     */
+    public AlipayQueryResponse createAlipayQueryResponse() {
+        return new AlipayQueryResponse();
+    }
+
+    /**
+     * Create an instance of {@link AlipayCreateandPayResponse }
+     * 
+     */
+    public AlipayCreateandPayResponse createAlipayCreateandPayResponse() {
+        return new AlipayCreateandPayResponse();
+    }
+
+    /**
+     * Create an instance of {@link CreateandpayResponse }
+     * 
+     */
+    public CreateandpayResponse createCreateandpayResponse() {
+        return new CreateandpayResponse();
+    }
+
+    /**
+     * Create an instance of {@link CreateandpayRequest }
+     * 
+     */
+    public CreateandpayRequest createCreateandpayRequest() {
+        return new CreateandpayRequest();
+    }
+
+    /**
+     * Create an instance of {@link PrecreateResponse }
+     * 
+     */
+    public PrecreateResponse createPrecreateResponse() {
+        return new PrecreateResponse();
     }
 
     /**
@@ -257,6 +161,86 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link AlipayRefundResponse }
+     * 
+     */
+    public AlipayRefundResponse createAlipayRefundResponse() {
+        return new AlipayRefundResponse();
+    }
+
+    /**
+     * Create an instance of {@link CancelRequest }
+     * 
+     */
+    public CancelRequest createCancelRequest() {
+        return new CancelRequest();
+    }
+
+    /**
+     * Create an instance of {@link AlipayPrecreate }
+     * 
+     */
+    public AlipayPrecreate createAlipayPrecreate() {
+        return new AlipayPrecreate();
+    }
+
+    /**
+     * Create an instance of {@link AlipayQuery }
+     * 
+     */
+    public AlipayQuery createAlipayQuery() {
+        return new AlipayQuery();
+    }
+
+    /**
+     * Create an instance of {@link AlipayCancel }
+     * 
+     */
+    public AlipayCancel createAlipayCancel() {
+        return new AlipayCancel();
+    }
+
+    /**
+     * Create an instance of {@link AlipayPrecreatePicArray }
+     * 
+     */
+    public AlipayPrecreatePicArray createAlipayPrecreatePicArray() {
+        return new AlipayPrecreatePicArray();
+    }
+
+    /**
+     * Create an instance of {@link PrecreateRequest }
+     * 
+     */
+    public PrecreateRequest createPrecreateRequest() {
+        return new PrecreateRequest();
+    }
+
+    /**
+     * Create an instance of {@link CloseResponse }
+     * 
+     */
+    public CloseResponse createCloseResponse() {
+        return new CloseResponse();
+    }
+
+    /**
+     * Create an instance of {@link Partner }
+     * 
+     */
+    public Partner createPartner() {
+        return new Partner();
+    }
+
+    /**
+     * Create an instance of {@link AlipayCreateandPay }
+     * 
+     */
+    public AlipayCreateandPay createAlipayCreateandPay() {
+        return new AlipayCreateandPay();
+    }
+
+    /**
      * Create an instance of {@link AlipayPrecreateResponse }
      * 
      */
@@ -265,11 +249,35 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link AlipayCancelResponse }
+     * Create an instance of {@link QueryResponse }
      * 
      */
-    public AlipayCancelResponse createAlipayCancelResponse() {
-        return new AlipayCancelResponse();
+    public QueryResponse createQueryResponse() {
+        return new QueryResponse();
+    }
+
+    /**
+     * Create an instance of {@link AlipayRefund }
+     * 
+     */
+    public AlipayRefund createAlipayRefund() {
+        return new AlipayRefund();
+    }
+
+    /**
+     * Create an instance of {@link AlipayPrecreatePic }
+     * 
+     */
+    public AlipayPrecreatePic createAlipayPrecreatePic() {
+        return new AlipayPrecreatePic();
+    }
+
+    /**
+     * Create an instance of {@link RefundResponse }
+     * 
+     */
+    public RefundResponse createRefundResponse() {
+        return new RefundResponse();
     }
 
     /**
@@ -345,21 +353,21 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link AlipayPrecreatePicArray }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://service.alipay.com/", name = "alipayPrecreatePicArray")
-    public JAXBElement<AlipayPrecreatePicArray> createAlipayPrecreatePicArray(AlipayPrecreatePicArray value) {
-        return new JAXBElement<AlipayPrecreatePicArray>(_AlipayPrecreatePicArray_QNAME, AlipayPrecreatePicArray.class, null, value);
-    }
-
-    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link AlipayClose }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://service.alipay.com/", name = "alipayClose")
     public JAXBElement<AlipayClose> createAlipayClose(AlipayClose value) {
         return new JAXBElement<AlipayClose>(_AlipayClose_QNAME, AlipayClose.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link AlipayPrecreatePicArray }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://service.alipay.com/", name = "alipayPrecreatePicArray")
+    public JAXBElement<AlipayPrecreatePicArray> createAlipayPrecreatePicArray(AlipayPrecreatePicArray value) {
+        return new JAXBElement<AlipayPrecreatePicArray>(_AlipayPrecreatePicArray_QNAME, AlipayPrecreatePicArray.class, null, value);
     }
 
     /**

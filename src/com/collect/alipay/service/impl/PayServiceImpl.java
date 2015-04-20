@@ -7,10 +7,11 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.collect.alipay.control.dto.Status;
+import com.collect.alipay.domain.Cust;
 import com.collect.alipay.domain.Loginer;
 import com.collect.alipay.domain.Pay;
+import com.collect.alipay.service.CustService;
 import com.collect.alipay.service.PayService;
-import com.collect.alipay.util.UUIDUtil;
 import com.collect.alipay.wsclient.AlipayPayService;
 import com.collect.alipay.wsclient.CreateandpayRequest;
 import com.collect.alipay.wsclient.PrecreateRequest;
@@ -30,6 +31,9 @@ public class PayServiceImpl extends BaseServiceImpl<Pay> implements PayService {
 	private AlipayPayService alipayService;
 
 	@Inject
+	private CustService custService;
+
+	@Inject
 	private String notifyUrl;
 
 	@Inject
@@ -44,7 +48,9 @@ public class PayServiceImpl extends BaseServiceImpl<Pay> implements PayService {
 	@Override
 	public Object pay(Pay pay, Loginer loginer) {
 
-		String tradeNo = tradeNoPrefix + UUIDUtil.randomUUID();
+		String tradeNo = tradeNoPrefix + System.currentTimeMillis() + "";
+
+		Cust cust = custService.getById(loginer.getCustOrDistributorId());
 
 		pay.setId(tradeNo);
 		pay.setLoginer(loginer.getUsername());
@@ -65,6 +71,8 @@ public class PayServiceImpl extends BaseServiceImpl<Pay> implements PayService {
 			pr.setTradeNo(tradeNo);
 			pr.setUser(loginer == null ? "" : loginer.getUsername());
 			pr.setNotifyUrl(notifyUrl);
+			pr.setPartner(cust.getAlipayusername());
+			pr.setKey(cust.getAlipaypassword());
 
 			return alipayService.alipayPrecreate(pr);
 
@@ -85,6 +93,9 @@ public class PayServiceImpl extends BaseServiceImpl<Pay> implements PayService {
 			cr.setTotal(pay.getAmount().floatValue() + "");
 			cr.setTradeNo(tradeNo);
 			cr.setUser(loginer == null ? "" : loginer.getUsername());
+			cr.setNotifyUrl(notifyUrl);
+			cr.setPartner(cust.getAlipayusername());
+			cr.setKey(cust.getAlipaypassword());
 
 			return alipayService.alipayCreateandPay(cr);
 

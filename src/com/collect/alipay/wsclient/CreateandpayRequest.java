@@ -14,10 +14,11 @@ import javax.xml.bind.annotation.XmlType;
  * <pre>
  * &lt;complexType name="createandpayRequest">
  *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *     &lt;extension base="{http://service.alipay.com/}partner">
  *       &lt;sequence>
  *         &lt;element name="dynamicId" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="dynamicIdType" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="notifyUrl" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="productCode" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="remark" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="subject" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
@@ -25,7 +26,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="tradeNo" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="user" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       &lt;/sequence>
- *     &lt;/restriction>
+ *     &lt;/extension>
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
@@ -36,6 +37,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "createandpayRequest", propOrder = {
     "dynamicId",
     "dynamicIdType",
+    "notifyUrl",
     "productCode",
     "remark",
     "subject",
@@ -43,10 +45,13 @@ import javax.xml.bind.annotation.XmlType;
     "tradeNo",
     "user"
 })
-public class CreateandpayRequest {
+public class CreateandpayRequest
+    extends Partner
+{
 
     protected String dynamicId;
     protected String dynamicIdType;
+    protected String notifyUrl;
     protected String productCode;
     protected String remark;
     protected String subject;
@@ -100,6 +105,30 @@ public class CreateandpayRequest {
      */
     public void setDynamicIdType(String value) {
         this.dynamicIdType = value;
+    }
+
+    /**
+     * Gets the value of the notifyUrl property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getNotifyUrl() {
+        return notifyUrl;
+    }
+
+    /**
+     * Sets the value of the notifyUrl property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setNotifyUrl(String value) {
+        this.notifyUrl = value;
     }
 
     /**

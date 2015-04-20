@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlType;
  * <pre>
  * &lt;complexType name="refundRequest">
  *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *     &lt;extension base="{http://service.alipay.com/}partner">
  *       &lt;sequence>
  *         &lt;element name="amount" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="outRequestNo" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="tradeNo" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="user" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       &lt;/sequence>
- *     &lt;/restriction>
+ *     &lt;/extension>
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
@@ -37,7 +37,9 @@ import javax.xml.bind.annotation.XmlType;
     "tradeNo",
     "user"
 })
-public class RefundRequest {
+public class RefundRequest
+    extends Partner
+{
 
     protected String amount;
     protected String outRequestNo;

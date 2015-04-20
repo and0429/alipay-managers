@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlType;
  * <pre>
  * &lt;complexType name="precreateRequest">
  *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *     &lt;extension base="{http://service.alipay.com/}partner">
  *       &lt;sequence>
  *         &lt;element name="notifyUrl" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="productCode" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="tradeNo" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="user" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       &lt;/sequence>
- *     &lt;/restriction>
+ *     &lt;/extension>
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
@@ -41,7 +41,9 @@ import javax.xml.bind.annotation.XmlType;
     "tradeNo",
     "user"
 })
-public class PrecreateRequest {
+public class PrecreateRequest
+    extends Partner
+{
 
     protected String notifyUrl;
     protected String productCode;
