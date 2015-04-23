@@ -34,10 +34,29 @@ SellDetail.prototype.loadDataTable = function() {
 			'dateType' : 'json',
 			'type' : 'POST',
 			'data' : function(d) {
-				return $.extend(d, {
-					'startDate' : $('#startDate').val() == '' ? undefined : $('#startDate').val(),
-					'endDate' : $('#endDate').val() == '' ? undefined : $('#endDate').val() + ' 23:59:59',
-				});
+
+				var timeParam = undefined;
+				var payWay = undefined;
+
+				if ($('#selectPayWay').val() !== '支付方式') {
+					payWay = $('#selectPayWay').val();
+				}
+
+				if ($('#selectType').val() === "1") {
+					timeParam = {
+						'startDate' : $('#startDate').val() == '' ? undefined : $('#startDate').val(),
+						'endDate' : $('#endDate').val() == '' ? undefined : $('#endDate').val() + ' 23:59:59',
+						'payWay' : payWay
+					};
+				} else if ($('#selectType').val() === "2") {
+					timeParam = {
+						'refundStartTime' : $('#startDate').val() == '' ? undefined : $('#startDate').val(),
+						'refundEndTime' : $('#endDate').val() == '' ? undefined : $('#endDate').val() + ' 23:59:59',
+						'payWay' : payWay
+					};
+				}
+
+				return $.extend(d, timeParam);
 			}
 		},
 		"columns" : [ {
@@ -77,13 +96,13 @@ SellDetail.prototype.loadDataTable = function() {
 			"render" : function(data, type, full, meta) {
 				switch (data) {
 				case 0:
-					return '支付宝';
+					return '支付宝预支付';
 					break;
 				case 2:
-					return '扫码支付';
+					return '支付宝消费';
 					break;
 				case 1:
-					return '现金';
+					return '现金支付';
 					break;
 				}
 			}
@@ -138,8 +157,10 @@ SellDetail.prototype.loadDataTable = function() {
  */
 SellDetail.prototype.addToobar = function() {
 	var toolbarhtml = '';
-	toolbarhtml += "<input type='date' id='startDate' placeholder='开始时间'/>";
-	toolbarhtml += "<input type='date' id='endDate' placeholder='结束时间' style='margin-left: 10px;'/>";
+	toolbarhtml += "<select id='selectPayWay'><option selected='selected'>支付方式</option><option value='2'>支付宝消费</option><option value='0'>支付宝预支付</option><option value='1'>现金支付</option></select>";
+	toolbarhtml += "<select id='selectType' style='margin-left: 10px;'><option value='1'>支付时间</option><option value='2'>退款时间</option></select>";
+	toolbarhtml += "<input type='date' id='startDate' placeholder='开始时间' style='margin-left: 10px; width: 125px;'/>";
+	toolbarhtml += "<input type='date' id='endDate' placeholder='结束时间' style='margin-left: 10px; width: 125px;'/>";
 	toolbarhtml += "<button class='btn btn-primary' id='searchbtu' style='margin-bottom: 10px; margin-left: 10px;'>查询</button>";
 	$('.toolbar').html(toolbarhtml);
 };

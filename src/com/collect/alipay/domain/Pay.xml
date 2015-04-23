@@ -17,8 +17,19 @@
 				and p_pay_date <![CDATA[<=]]>
 				#{endDate}
 			</if>
+			<if test="refundStartTime != null">
+				and p_refundTime <![CDATA[>=]]>
+				#{refundStartTime}
+			</if>
+			<if test="refundEndTime != null">
+				and p_refundTime <![CDATA[<=]]>
+				#{refundEndTime}
+			</if>
 			<if test="loginer != null">
 				and p_loginer = #{loginer}
+			</if>
+			<if test="payWay != null">
+				and p_pay_type = #{payWay}
 			</if>
 		</where>
 		order by p_pay_date desc
@@ -37,8 +48,19 @@
 				and p_pay_date <![CDATA[<=]]>
 				#{endDate}
 			</if>
+			<if test="refundStartTime != null">
+				and p_refundTime <![CDATA[>=]]>
+				#{refundStartTime}
+			</if>
+			<if test="refundEndTime != null">
+				and p_refundTime <![CDATA[<=]]>
+				#{refundEndTime}
+			</if>
 			<if test="loginer != null">
 				and p_loginer = #{loginer}
+			</if>
+			<if test="payWay != null">
+				and p_pay_type = #{payWay}
 			</if>
 		</where>
 	</select>

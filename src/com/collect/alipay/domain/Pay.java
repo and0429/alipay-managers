@@ -44,7 +44,8 @@ public class Pay extends BaseModel {
 
 	/**
 	 * 0:支付宝<br/>
-	 * 1:现金
+	 * 1:现金<br/>
+	 * 2:支付宝消费
 	 */
 	private Integer payWay;
 
@@ -83,9 +84,35 @@ public class Pay extends BaseModel {
 	private String refundTime;
 
 	/**
+	 * 退款开始时间 用于查询
+	 */
+	private String refundStartTime;
+
+	/**
+	 * 退款结束时间用于查询
+	 */
+	private String refundEndTime;
+
+	/**
 	 * 条目或者二维码的值
 	 */
 	private String code;
+
+	public String getRefundStartTime() {
+		return refundStartTime;
+	}
+
+	public void setRefundStartTime(String refundStartTime) {
+		this.refundStartTime = refundStartTime;
+	}
+
+	public String getRefundEndTime() {
+		return refundEndTime;
+	}
+
+	public void setRefundEndTime(String refundEndTime) {
+		this.refundEndTime = refundEndTime;
+	}
 
 	public Float getAmount() {
 		return amount;
