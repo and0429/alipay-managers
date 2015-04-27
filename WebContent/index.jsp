@@ -62,6 +62,12 @@ input#username {
 	border: none;
 	background: inherit;
 }
+
+#foot {
+	position: absolute;
+	margin-left: 639px;
+	margin-top: 579px;
+}
 </style>
 </head>
 </head>
@@ -74,6 +80,9 @@ input#username {
 				<input type="image" src="assets/images/login/submint.png" border="0">
 				<div class='loginMessage'>${loginer.loginMessage }</div>
 			</sf:form>
+		</div>
+		<div>
+			<span id="foot">陕ICP备10004898号-2</span>
 		</div>
 	</div>
 </body>

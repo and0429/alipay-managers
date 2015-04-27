@@ -11,14 +11,12 @@
 		from t_pay
 		left join t_cust on p_cust_id = c_id
 		<where>
+			(p_pay_type = 0 or p_pay_type = 2) and (p_status = 'REFUND_SUCCESS' or p_status = 'TRADE_SUCCESS')
 			<if test="sellDetail4Distributor.cust != null and sellDetail4Distributor.cust.name != null">
-				c_name like '%${sellDetail4Distributor.cust.name}%'
+				and c_name like '%${sellDetail4Distributor.cust.name}%'
 			</if>
 			<if test="sellDetail4Distributor.payDate != null">
 				and date_format(p_pay_date, '%Y-%m') = #{sellDetail4Distributor.payDate}
-			</if>
-			<if test="1==1">
-				and p_pay_type = 0
 			</if>
 			<if test="!distributorIds.isEmpty()">
 				and c_distributor_id in
@@ -36,14 +34,12 @@
 		from t_pay
 		left join t_cust on p_cust_id = c_id
 		<where>
+			(p_pay_type = 0 or p_pay_type = 2) and (p_status = 'REFUND_SUCCESS' or p_status = 'TRADE_SUCCESS')
 			<if test="sellDetail4Distributor.cust != null and sellDetail4Distributor.cust.name != null">
 				c_name like '%${sellDetail4Distributor.cust.name}%'
 			</if>
 			<if test="sellDetail4Distributor.payDate != null">
 				and date_format(p_pay_date, '%Y-%m') = #{sellDetail4Distributor.payDate}
-			</if>
-			<if test="1==1">
-				and p_pay_type = 0
 			</if>
 			<if test="!distributorIds.isEmpty()">
 				and c_distributor_id in

@@ -43,7 +43,11 @@ SellDetail4shangtong.prototype = {
 			"columns" : [ {
 				"data" : "amount"
 			}, {
+				"data" : "payWay"
+			}, {
 				"data" : "payDate"
+			}, {
+				"data" : "status"
 			}, {
 				"data" : "custName"
 			}, {
@@ -53,7 +57,7 @@ SellDetail4shangtong.prototype = {
 			} ],
 
 			"columnDefs" : [ {
-				"targets" : [ 0, 3 ],
+				"targets" : [ 0, 5 ],
 				"render" : function(data, type, full, meta) {
 					if (data !== undefined) {
 						return data;
@@ -61,13 +65,45 @@ SellDetail4shangtong.prototype = {
 					return '';
 				}
 			}, {
-				"targets" : 1,
+				"targets" : 2,
 				"render" : function(data, type, full, meta) {
 					if (data) {
 						return data.split('.')[0];
 					}
 					return '';
-
+				}
+			}, {
+				"targets" : 3,
+				"render" : function(data, type, full, meta) {
+					if (data) {
+						switch (data) {
+						case 'TRADE_SUCCESS':
+							return '付款成功';
+							break;
+						case 'REFUND_SUCCESS':
+							return '退款成功';
+							break;
+						case 'WAIT_BUYER_PAY':
+							return '等待付款';
+							break;
+						}
+					}
+					return '';
+				}
+			}, {
+				"targets" : 1,
+				"render" : function(data, type, full, meta) {
+					switch (data) {
+					case 0:
+						return '支付宝预支付';
+						break;
+					case 2:
+						return '支付宝消费';
+						break;
+					case 1:
+						return '现金支付';
+						break;
+					}
 				}
 			} ],
 
