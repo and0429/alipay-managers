@@ -201,6 +201,8 @@ SellDetail.prototype.submitRefund = function() {
 
 	$('#saveBtn').on('click', function() {
 
+		$(this).attr('disabled', 'disabled')
+
 		var refundTotal = $('#refundtotal').val();
 		var tradeNo = $('#tradeNo').val();
 		var amount = $('#amount').val();
@@ -226,11 +228,17 @@ SellDetail.prototype.submitRefund = function() {
 			},
 			success : function(data) {
 				if (data) {
-					$('#refundModal').modal('hide');
-					sellDetail.dataTable.draw(false);
+					if (data.code === 1) {
+						$('#refundModal').modal('hide');
+						sellDetail.dataTable.draw(false);
+					} else {
+						$('#inputError').html(data.msg);
+					}
 				} else {
 					$('#inputError').html('退款失败，请重试');
 				}
+				
+				$('#saveBtn').removeAttr('disabled');
 			}
 		});
 	});

@@ -26,6 +26,8 @@ import com.collect.alipay.wsclient.RefundResponse;
  */
 @Named
 public class PayServiceImpl extends BaseServiceImpl<Pay> implements PayService {
+	
+	public static final String REFUND_ERROR = "退款错误";
 
 	@Inject
 	private AlipayPayService alipayService;
@@ -118,9 +120,13 @@ public class PayServiceImpl extends BaseServiceImpl<Pay> implements PayService {
 		RefundResponse rfresp = alipayService.alipayRefund(rfreq);
 
 		if (rfresp == null) {
-			return null;
+			return new Status(0, REFUND_ERROR);
 		}
 
+		if ("F".equals(rfresp.getSuccess())) {
+			return new Status(0, REFUND_ERROR);
+		}
+		
 		Pay payFromDb = this.getById(pay.getTradeNo());
 
 		payFromDb.setAmount(payFromDb.getAmount() - pay.getRefundTotal());
