@@ -10,8 +10,8 @@
 		select
 		date_format(DATE_SUB(curdate(), INTERVAL 1 DAY), '%Y-%m') as pmd_month,
 		sum(pmc_total_money) as pmd_total_money,
-		min(pmc_deduct) as pmd_deduct,
-		sum(pmc_deduct_money) as pmd_deduct_money
+		(select d_deduct from t_distributor where d_id = #{distributorId}) as pmd_deduct,
+		((select d_deduct from t_distributor where d_id = #{distributorId}) * sum(pmc_total_money)) as pmd_deduct_money
 
 		from t_pay_month_cust
 		left join t_cust on c_id = pmc_cust_id

@@ -35,6 +35,11 @@
 		#{id}
 	</delete>
 
+	<!-- delete loginer by cust id -->
+	<delete id="deleteLoginerByCustId">
+		delete from t_loginer where l_custOrDistributorId = #{id}
+	</delete>
+
 	<!-- update a entity -->
 	<update id="update" parameterType="Cust">
 		update t_cust

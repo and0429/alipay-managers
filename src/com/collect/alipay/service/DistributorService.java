@@ -29,4 +29,20 @@ public interface DistributorService extends BaseService<Distributor> {
 	 */
 	List<Distributor> getByParentId(String parentId);
 
+	/**
+	 * 删除分销商后更新父级分销商的hasChild
+	 * 
+	 * @param id
+	 * @return
+	 */
+	int deleteAndUpdatePdistributor(String id, String pId);
+
+	/**
+	 * 根据Id删除此分销商的用户
+	 * 
+	 * @param id
+	 * @return
+	 */
+	int deleteLoginerBydistributorId(String id);
+
 }

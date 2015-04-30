@@ -41,14 +41,12 @@ PayMonth4Loginer.prototype.loadDataTable = function() {
 			"data" : "month"
 		}, {
 			"data" : "total"
-		}, {
-			"data" : "deduct"
-		}, {
-			"data" : "deductMoney"
-		} ],
+		} /*
+			 * , { "data" : "deduct" }, { "data" : "deductMoney" }
+			 */],
 
 		"columnDefs" : [ {
-			"targets" : 2,
+			"targets" : 1,
 			"render" : function(data, type, full, meta) {
 				return data;
 			}

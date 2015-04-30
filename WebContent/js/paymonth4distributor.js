@@ -50,16 +50,14 @@ Paymonth4distributor.prototype.loadDataTable = function() {
 			"data" : "cust.name"
 		}, {
 			"data" : "total"
-		}, {
-			"data" : "deduct"
-		}, {
-			"data" : "deductMoney"
-		} ],
+		} /*
+			 * , { "data" : "deduct" }, { "data" : "deductMoney" }
+			 */],
 
 		"columnDefs" : [ {
-			"targets" : [ 2, 3, 4 ],
+			"targets" : 2,
 			"render" : function(data, type, full, meta) {
-				return data.toFixed(2);
+				return data;
 			}
 		} ],
 

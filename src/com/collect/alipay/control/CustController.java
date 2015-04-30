@@ -61,7 +61,7 @@ public class CustController {
 	 */
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	public Object delete(@PathVariable String id) {
-		int result = custService.delete(id);
+		int result = custService.deleteAndItsLoginer(id);
 		return new Status(result);
 	}
 

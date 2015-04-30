@@ -17,6 +17,11 @@
 		delete from t_distributor where d_id = #{id}
 	</delete>
 
+	<!-- 根据分销商的Id删除此分销商的Id -->
+	<delete id="deleteLoginerBydistributorId">
+		delete from t_loginer where l_custOrDistributorId = #{id}
+	</delete>
+
 	<!-- get by Id -->
 	<select id="getById" parameterType="string" resultMap="distributor">
 		select
@@ -49,7 +54,7 @@
 				d_parent_id = #{pId},
 			</if>
 			<if test="hasChild != null">
-				d_haschild = #{hasChild}
+				d_haschild = #{hasChild},
 			</if>
 			<if test="deduct != null">
 				d_deduct = #{deduct}

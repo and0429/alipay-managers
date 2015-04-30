@@ -131,18 +131,8 @@ public class DistributorController {
 		if (custs.size() > 0) {
 			return new Status(0, "该分销商下有商户，不能删除！");
 		}
-		int rusult = distributorService.delete(id);
 
-		List<Distributor> list = distributorService.getByParentId(pId);
-
-		/*
-		 * 如果删除分销商后，父级没有子分销商了，修改Haschild字段
-		 */
-		if (list == null || list.isEmpty()) {
-			Distributor dis = distributorService.getById(pId);
-			dis.setHasChild(0);
-			distributorService.update(dis);
-		}
+		int rusult = distributorService.deleteAndUpdatePdistributor(id, pId);
 
 		return new Status(rusult);
 	}

@@ -3,7 +3,9 @@ package com.collect.alipay.service.impl;
 import static org.apache.log4j.Logger.getLogger;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -45,6 +47,10 @@ public class PayMonth4DistributorServiceImpl extends BaseServiceImpl<PayMonth4Di
 			String distributorId = distributor.getId();
 
 			List<String> lastDistributorIds = DistributorUtils.getAllNoChildDistributorById(distributors, distributorId);
+
+			Map<String, Object> params = new HashMap<String, Object>();
+			params.put("list", lastDistributorIds);
+			params.put("distributorId", distributorId);
 
 			PayMonth4Distributor PayMonth4Distributor = this.getPayMonth4DistributorByLastDistributorIds(lastDistributorIds);
 

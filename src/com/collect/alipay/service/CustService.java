@@ -40,4 +40,21 @@ public interface CustService extends BaseService<Cust> {
 	 */
 	List<Cust> getByDistributorIds(List<String> distributorIds);
 
+	/**
+	 * 删除他和他的用户
+	 * 
+	 * @param id
+	 *            Id
+	 * @return
+	 */
+	int deleteAndItsLoginer(String id);
+
+	/**
+	 * 根据Id删除他的用户
+	 * 
+	 * @param id
+	 * @return
+	 */
+	int deleteLoginerByCustId(String id);
+
 }

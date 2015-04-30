@@ -7,7 +7,7 @@
 
 	<!-- get pager data -->
 	<select id="getpager" resultMap="payMonth4Cust">
-		select * 
+		select *
 		from t_pay_month_cust
 		left join t_cust
 		on pmc_cust_id = c_id
@@ -29,8 +29,6 @@
 		date_format(p_pay_date, '%Y-%m') pmc_month,
 		p_cust_id pmc_cust_id,
 		sum(p_amount) pmc_total_money,
-		(select de_val from t_deduct) pmc_deduct,
-		(sum(p_amount) * (select de_val from t_deduct)) pmc_deduct_money,
 		c_name
 		from t_pay left join t_cust on p_cust_id = c_id
 		where p_pay_type = 0
@@ -53,8 +51,8 @@
 		#{month},
 		#{cust.id},
 		#{total},
-		#{deduct},
-		#{deductMoney}
+		#{deduct, jdbcType=VARCHAR},
+		#{deductMoney, jdbcType=VARCHAR}
 		)
 	</insert>
 

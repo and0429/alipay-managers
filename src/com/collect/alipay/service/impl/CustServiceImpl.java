@@ -73,4 +73,25 @@ public class CustServiceImpl extends BaseServiceImpl<Cust> implements CustServic
 		return sqlSession.selectList(clazz.getName() + ".getByDistributorIds", distributorIds);
 	}
 
+	@Override
+	public int deleteAndItsLoginer(String id) {
+
+		int result = this.delete(id);
+		this.deleteLoginerByCustId(id);
+
+		return result;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.collect.alipay.service.CustService#deleteLoginerByCustId(java.lang
+	 * .String)
+	 */
+	@Override
+	public int deleteLoginerByCustId(String id) {
+		return sqlSession.delete(clazz.getName() + ".deleteLoginerByCustId", id);
+	}
+
 }
