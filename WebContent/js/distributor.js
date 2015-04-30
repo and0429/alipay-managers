@@ -2,8 +2,8 @@ var distributor = new Object();
 
 distributor.zTreeObj = undefined;
 
-distributor.deductDivHtml = "<label class='control-label'>分成率（小数）</label>"
-		+ "<div class='controls'><input class='span3' type='text' id='deduct' name='deduct' maxlength='4' required='required' /></div>";
+distributor.deductDivHtml = "<label class='control-label'>分成率（%）</label>"
+		+ "<div class='controls'><input class='span3' type='text' id='deduct' name='deduct' maxlength='6' required='required' /></div>";
 
 /**
  * main
@@ -185,9 +185,9 @@ distributor.subMitForm = function() {
 				$('#deduct')[0].focus();
 				$('#inputError').html('联系地址不能为空');
 				return false;
-			} else if (!(/^0.0[0-9]$/.test(array[4].value))) {
+			} else if (!(/^[0-9]{1,2}(.[0-9]+)?$/.test(array[4].value)) || !(parseFloat(array[4].value) < parseFloat(100))) {
 				$('#deduct')[0].focus();
-				$('#inputError').html('分成率格式必须为两位的小数');
+				$('#inputError').html('分成率为小于100的整数或小数！');
 				return false;
 			}
 
@@ -255,7 +255,7 @@ distributor.updateNode = function(treeNode) {
 			$('#tel').val(data.tel);
 			$('#addr').val(data.addr);
 			$('#id').val(data.id);
-			
+
 			if (!treeNode.pId) {
 				$('#deductDiv').empty();
 			} else {
@@ -286,7 +286,7 @@ distributor.addInfo = function(treeNode) {
 		$('#managerinfo').html(treeNode.manager);
 		$('#telinfo').html(treeNode.tel);
 		$('#addrinfo').html(treeNode.addr);
-		$('#deductinfo').html(treeNode.deduct);
+		$('#deductinfo').html(treeNode.deduct === 0 ? '' : treeNode.deduct);
 	}
 };
 

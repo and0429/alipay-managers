@@ -56,9 +56,14 @@ Paymonth.prototype.loadDataTable = function() {
 		} ],
 
 		"columnDefs" : [ {
-			"targets" : [ 2, 3, 4 ],
+			"targets" : [ 2, 4 ],
 			"render" : function(data, type, full, meta) {
-				return data.toFixed(2);
+				return data;
+			}
+		}, {
+			"targets" : 3,
+			"render" : function(data, type, full, meta) {
+				return data + '%';
 			}
 		} ],
 

@@ -11,7 +11,7 @@
 		date_format(DATE_SUB(curdate(), INTERVAL 1 DAY), '%Y-%m') as pmd_month,
 		sum(pmc_total_money) as pmd_total_money,
 		(select d_deduct from t_distributor where d_id = #{distributorId}) as pmd_deduct,
-		((select d_deduct from t_distributor where d_id = #{distributorId}) * sum(pmc_total_money)) as pmd_deduct_money
+		(round((select (d_deduct * 0.01) from t_distributor where d_id = #{distributorId}) * sum(pmc_total_money), 2)) as pmd_deduct_money
 
 		from t_pay_month_cust
 		left join t_cust on c_id = pmc_cust_id
