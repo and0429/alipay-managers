@@ -210,7 +210,7 @@ payOnlie.modalMethod = function() {
 				},
 				success : function(data) {
 
-					if (data !== undefined && data.resultCode === 'ORDER_SUCCESS_PAY_INPROCESS') {
+					if (data !== undefined && (data.resultCode === 'ORDER_SUCCESS_PAY_INPROCESS' || data.resultCode === 'ORDER_SUCCESS_PAY_SUCCESS')) {
 						payOnlie.outTradeNo = data.outTradeNo;
 						$('#successMessage').html("<span style='padding-left: 180px;'>正在支付，请稍等。。。</span>");
 						payOnlie.timeId = setInterval('payOnlie.getPayStatus()', 1000);
