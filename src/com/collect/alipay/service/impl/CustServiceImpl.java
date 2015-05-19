@@ -38,7 +38,7 @@ public class CustServiceImpl extends BaseServiceImpl<Cust> implements CustServic
 
 		List<Distributor> all = distributorService.getAll(null);
 
-		List<String> distributorIds = DistributorUtils.getAllNoChildDistributorById(all, distributorId);
+		List<String> distributorIds = DistributorUtils.getChildDistributorById(all, distributorId);
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("cust", cust);

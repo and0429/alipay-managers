@@ -57,7 +57,7 @@ public class PayMonth4CustServiceImpl extends BaseServiceImpl<PayMonth4Cust> imp
 			distributorId = loginer.getCustOrDistributorId();
 
 		List<Distributor> allDistributors = distributorService.getAll(null);
-		List<String> distributorIds = DistributorUtils.getAllNoChildDistributorById(allDistributors, distributorId);
+		List<String> distributorIds = DistributorUtils.getChildDistributorById(allDistributors, distributorId);
 
 		Map<String, Object> params = new HashMap<String, Object>();
 

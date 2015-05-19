@@ -57,6 +57,42 @@ public class DistributorUtils {
 	}
 
 	/**
+	 * 获取指定分销商Id的所有子分销商的Id集合
+	 * 
+	 * @param all
+	 *            总分销商集合
+	 * @param id
+	 *            制定Id
+	 * @return 自分销商Id集合
+	 */
+	public static List<String> getChildDistributorById(List<Distributor> all, String id) {
+		List<String> list = new ArrayList<String>();
+		getChildrenDistributorById(all, list, id);
+		return list;
+	}
+
+	/**
+	 * 
+	 * @param all
+	 * @param list
+	 * @param id
+	 */
+	private static void getChildrenDistributorById(List<Distributor> all, List<String> list, String id) {
+
+		for (int i = 0; i < all.size(); i++) {
+			Distributor distributor = all.get(i);
+			
+			if (distributor.getId().equals(id)) {
+				list.add(distributor.getId());
+			} else {
+				if (id.equals(distributor.getpId())) {
+					getChildrenDistributorById(all, list, distributor.getId());
+				}
+			}
+		}
+	}
+
+	/**
 	 * 返回一个指定Id的分销商的所有的子集合
 	 * 
 	 * @param all

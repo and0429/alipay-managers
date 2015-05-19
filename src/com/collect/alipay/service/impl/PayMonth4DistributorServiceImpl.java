@@ -46,7 +46,7 @@ public class PayMonth4DistributorServiceImpl extends BaseServiceImpl<PayMonth4Di
 
 			String distributorId = distributor.getId();
 
-			List<String> lastDistributorIds = DistributorUtils.getAllNoChildDistributorById(distributors, distributorId);
+			List<String> lastDistributorIds = DistributorUtils.getChildDistributorById(distributors, distributorId);
 
 			Map<String, Object> params = new HashMap<String, Object>();
 			params.put("list", lastDistributorIds);

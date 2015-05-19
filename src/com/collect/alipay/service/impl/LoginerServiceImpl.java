@@ -77,7 +77,7 @@ public class LoginerServiceImpl extends BaseServiceImpl<Loginer> implements Logi
 
 		List<Distributor> list = DistributorUtils.getSelfAndChild(all, loginer.getCustOrDistributorId());
 
-		List<String> distributorIds = DistributorUtils.getAllNoChildDistributorById(list, loginer.getCustOrDistributorId());
+		List<String> distributorIds = DistributorUtils.getChildDistributorById(list, loginer.getCustOrDistributorId());
 
 		List<Cust> custs = custService.getByDistributorIds(distributorIds);
 
